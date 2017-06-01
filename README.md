@@ -1,2 +1,0 @@
-# DesignerJing
-wenjing`s blog
