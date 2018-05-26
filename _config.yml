@@ -4,10 +4,10 @@
 # ---------------------------------------------------------------
 
 # Site
-title: kangbing
-subtitle: Korbin's Blog
-description: 每天进步一小步!
-author: korbin
+title: vinjing
+subtitle: Vingjing's Blog
+description: 一个不正经的设计师
+author: vinjing
 # Support language: de, en, fr-FR, id, ja, ko, pt-BR, pt, ru, zh-Hans, zh-hk, zh-tw
 language: zh-Hans
 date_format: '%Y-%m-%d'
@@ -78,7 +78,7 @@ plugins:
 favicon: /assets/images/favicon.ico
 
 # Set default keywords (Use a comma to separate)
-keywords: "iOS, kangbing, korbin"
+keywords: "UI, vinjing, wenjing"
 
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
@@ -213,8 +213,8 @@ font:
 # Key is the link label showing to end users.
 # Value is the target link (E.g. GitHub: https://github.com/iissnan)
 social:
-  GitHub: https://github.com/kangbingbing
-  Twitter: https://twitter.com/kangbingbing
+  GitHub: https://github.com/vinjing
+  #Twitter:
 
 
 # Social Links Icons
@@ -433,10 +433,10 @@ gitalk:
 
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters/
-google_site_verification: google678188973c4dedac.html
+#google_site_verification: 
 
 # Google Analytics
-google_analytics: UA-106565416-1
+#google_analytics:
 
 # Yandex Webmaster tools verification setting
 # See: https://webmaster.yandex.ru/
