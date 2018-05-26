@@ -1,0 +1,1033 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="google678188973c4dedac.html" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="kangbing" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在之前，我们已经讨论了非常多的问题了，关于 objc 源代码系列的文章也快结束了，其实关于对象是如何初始化的这篇文章本来是我要写的第一篇文章，但是由于有很多前置内容不得不说，所以留到了这里。">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对象是如何初始化的-iOS">
+<meta property="og:url" content="http://localhost:4000/ios/2017/02/13/%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84/">
+<meta property="og:site_name" content="kangbing">
+<meta property="og:description" content="在之前，我们已经讨论了非常多的问题了，关于 objc 源代码系列的文章也快结束了，其实关于对象是如何初始化的这篇文章本来是我要写的第一篇文章，但是由于有很多前置内容不得不说，所以留到了这里。">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对象是如何初始化的-iOS">
+<meta name="twitter:description" content="在之前，我们已经讨论了非常多的问题了，关于 objc 源代码系列的文章也快结束了，其实关于对象是如何初始化的这篇文章本来是我要写的第一篇文章，但是由于有很多前置内容不得不说，所以留到了这里。">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>对象是如何初始化的-iOS | kangbing</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-106565416-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">kangbing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Korbin's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/ios/2017/02/13/%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="korbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kangbing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            对象是如何初始化的-iOS
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-13T00:00:00+08:00">
+                2017-02-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/iOS" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在之前，我们已经讨论了非常多的问题了，关于 objc 源代码系列的文章也快结束了，其实关于对象是如何初始化的这篇文章本来是我要写的第一篇文章，但是由于有很多前置内容不得不说，所以留到了这里。</p>
+
+<p><code class="highlighter-rouge">+ alloc</code> 和 <code class="highlighter-rouge">- init</code> 这一对我们在 iOS 开发中每天都要用到的初始化方法一直困扰着我, 于是笔者仔细研究了一下 objc 源码中 <code class="highlighter-rouge">NSObject</code> 如何进行初始化。</p>
+
+<p>在具体分析对象的初始化过程之前，我想先放出结论，以免文章中的细枝末节对读者的理解有所影响；整个对象的初始化过程其实只是<strong>为一个分配内存空间，并且初始化 isa_t 结构体的过程</strong>。</p>
+
+<h2 id="alloc-方法分析">alloc 方法分析</h2>
+
+<p>先来看一下 <code class="highlighter-rouge">+ alloc</code> 方法的调用栈(在调用栈中省略了很多不必要的方法的调用):</p>
+
+<pre><code class="language-objectivec">id _objc_rootAlloc(Class cls)
+└── static id callAlloc(Class cls, bool checkNil, bool allocWithZone=false)
+    └── id class_createInstance(Class cls, size_t extraBytes)
+    	└── id _class_createInstanceFromZone(Class cls, size_t extraBytes, void *zone, bool cxxConstruct, size_t *outAllocatedSize)
+            ├── size_t instanceSize(size_t extraBytes)
+            ├── void	*calloc(size_t, size_t)
+            └── inline void objc_object::initInstanceIsa(Class cls, bool hasCxxDtor)
+</code></pre>
+
+<p>这个调用栈中的方法涉及了多个文件中的代码，在下面的章节中会对调用的方法逐步进行分析，如果这个调用栈让你觉得很头疼，也不是什么问题。</p>
+
+<h3 id="alloc-的实现">alloc 的实现</h3>
+
+<pre><code class="language-objectivec">+ (id)alloc {
+    return _objc_rootAlloc(self);
+}
+</code></pre>
+
+<p><code class="highlighter-rouge">alloc</code> 方法的实现真的是非常的简单, 它直接调用了另一个私有方法 <code class="highlighter-rouge">id _objc_rootAlloc(Class cls)</code></p>
+
+<pre><code class="language-objectivec">id _objc_rootAlloc(Class cls) {
+    return callAlloc(cls, false/*checkNil*/, true/*allocWithZone*/);
+}
+</code></pre>
+
+<p>这就是上帝类 <code class="highlighter-rouge">NSObject</code> 对 <code class="highlighter-rouge">callAlloc</code> 的实现，我们省略了非常多的代码，展示了最常见的执行路径：</p>
+
+<pre><code class="language-objectivec">static id callAlloc(Class cls, bool checkNil, bool allocWithZone=false) {
+    id obj = class_createInstance(cls, 0);
+    return obj;
+}
+
+id class_createInstance(Class cls, size_t extraBytes) {
+    return _class_createInstanceFromZone(cls, extraBytes, nil);
+}
+</code></pre>
+
+<p>对象初始化中最重要的操作都在 <code class="highlighter-rouge">_class_createInstanceFromZone</code> 方法中执行：</p>
+
+<pre><code class="language-objectivec">static id _class_createInstanceFromZone(Class cls, size_t extraBytes, void *zone, bool cxxConstruct = true, size_t *outAllocatedSize = nil) {
+    size_t size = cls-&gt;instanceSize(extraBytes);
+
+    id obj = (id)calloc(1, size);
+    if (!obj) return nil;
+    obj-&gt;initInstanceIsa(cls, hasCxxDtor);
+
+    return obj;
+}
+</code></pre>
+
+<h3 id="对象的大小">对象的大小</h3>
+
+<p>在使用 <code class="highlighter-rouge">calloc</code> 为对象分配一块内存空间之前，我们要先获取对象在内存的大小：</p>
+
+<pre><code class="language-objectivec">size_t instanceSize(size_t extraBytes) {
+    size_t size = alignedInstanceSize() + extraBytes;
+    if (size &lt; 16) size = 16;
+    return size;
+}
+
+uint32_t alignedInstanceSize() {
+    return word_align(unalignedInstanceSize());
+}
+
+uint32_t unalignedInstanceSize() {
+    assert(isRealized());
+    return data()-&gt;ro-&gt;instanceSize;
+}
+</code></pre>
+
+<p>实例大小 <code class="highlighter-rouge">instanceSize</code> 会存储在类的 <code class="highlighter-rouge">isa_t</code> 结构体中，然后经过对齐最后返回。</p>
+
+<blockquote>
+  <p>Core Foundation 需要所有的对象的大小都必须大于或等于 16 字节。</p>
+</blockquote>
+
+<p>在获取对象大小之后，直接调用 <code class="highlighter-rouge">calloc</code> 函数就可以为对象分配内存空间了。</p>
+
+<h3 id="isa-的初始化">isa 的初始化</h3>
+
+<p>在对象的初始化过程中除了使用 <code class="highlighter-rouge">calloc</code> 来分配内存之外，还需要根据类初始化 <code class="highlighter-rouge">isa_t</code> 结构体：</p>
+
+<pre><code class="language-objectivec">inline void objc_object::initIsa(Class cls, bool indexed, bool hasCxxDtor) { 
+    if (!indexed) {
+        isa.cls = cls;
+    } else {
+        isa.bits = ISA_MAGIC_VALUE;
+        isa.has_cxx_dtor = hasCxxDtor;
+        isa.shiftcls = (uintptr_t)cls &gt;&gt; 3;
+    }
+}
+</code></pre>
+
+<p>上面的代码只是对 <code class="highlighter-rouge">isa_t</code> 结构体进行初始化而已：</p>
+
+<pre><code class="language-objectivec">union isa_t {
+   isa_t() { }
+   isa_t(uintptr_t value) : bits(value) { }
+    
+   Class cls;
+   uintptr_t bits;
+    
+   struct {
+       uintptr_t indexed           : 1;
+       uintptr_t has_assoc         : 1;
+       uintptr_t has_cxx_dtor      : 1;
+       uintptr_t shiftcls          : 44;
+       uintptr_t magic             : 6;
+       uintptr_t weakly_referenced : 1;
+       uintptr_t deallocating      : 1;
+       uintptr_t has_sidetable_rc  : 1;
+       uintptr_t extra_rc          : 8;
+   };
+};
+</code></pre>
+
+<blockquote>
+  <p>在这里并不想过多介绍关于 <code class="highlighter-rouge">isa_t</code> 结构体的内容，你可以看<a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/objc/从%20NSObject%20的初始化了解%20isa.md">从 NSObject 的初始化了解 isa</a> 来了解你想知道的关于 <code class="highlighter-rouge">isa_t</code> 的全部内容。</p>
+</blockquote>
+
+<h2 id="init-方法">init 方法</h2>
+
+<p><code class="highlighter-rouge">NSObject</code> 的 <code class="highlighter-rouge">- init</code> 方法只是调用了 <code class="highlighter-rouge">_objc_rootInit</code> 并返回了当前对象：</p>
+
+<pre><code class="language-objectivec">- (id)init {
+    return _objc_rootInit(self);
+}
+
+id _objc_rootInit(id obj) {
+    return obj;
+}
+</code></pre>
+
+<h2 id="总结">总结</h2>
+
+<p>在 iOS 中一个对象的初始化过程很符合直觉，只是分配内存空间、然后初始化 <code class="highlighter-rouge">isa_t</code> 结构体，其实现也并不复杂，这篇文章也是这个系列文章中较为简单并且简短的一篇。</p>
+
+<blockquote>
+  <p>Follow: <a href="https://github.com/Draveness">Draveness · Github</a></p>
+</blockquote>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/iOS" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ios/2017/02/17/ReactiveCocoa-RACSignal/" rel="next" title="ReactiveCocoa--RACSignal">
+                <i class="fa fa-chevron-left"></i> ReactiveCocoa--RACSignal
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/ios/2017/02/12/MBProgressHUD/" rel="prev" title="iOS 源代码分析 --- MBProgressHUD">
+                iOS 源代码分析 --- MBProgressHUD <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.png"
+               alt="korbin" />
+          <p class="site-author-name" itemprop="name">korbin</p>
+           
+              <p class="site-description motion-element" itemprop="description">每天进步一小步!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/kangbingbing" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/kangbingbing" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#alloc-方法分析"> <span class="nav-number">1</span> <span class="nav-text">alloc 方法分析</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#alloc-的实现"> <span class="nav-number">1.1</span> <span class="nav-text">alloc 的实现</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#对象的大小"> <span class="nav-number">1.2</span> <span class="nav-text">对象的大小</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#isa-的初始化"> <span class="nav-number">1.3</span> <span class="nav-text">isa 的初始化</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#init-方法"> <span class="nav-number">2</span> <span class="nav-text">init 方法</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#总结"> <span class="nav-number">3</span> <span class="nav-text">总结</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child">
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">korbin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      您是本站第
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访问者
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

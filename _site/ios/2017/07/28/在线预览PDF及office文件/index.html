@@ -1,0 +1,1037 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="google678188973c4dedac.html" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="kangbing" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="需求：线上生成电子合同，客户端预览。">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在线预览PDF及office文件">
+<meta property="og:url" content="http://localhost:4000/ios/2017/07/28/%E5%9C%A8%E7%BA%BF%E9%A2%84%E8%A7%88PDF%E5%8F%8Aoffice%E6%96%87%E4%BB%B6/">
+<meta property="og:site_name" content="kangbing">
+<meta property="og:description" content="需求：线上生成电子合同，客户端预览。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fhziu4tsang20ac0ige0o.gif">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在线预览PDF及office文件">
+<meta name="twitter:description" content="需求：线上生成电子合同，客户端预览。">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fhziu4tsang20ac0ige0o.gif">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>在线预览PDF及office文件 | kangbing</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-106565416-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">kangbing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Korbin's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/ios/2017/07/28/%E5%9C%A8%E7%BA%BF%E9%A2%84%E8%A7%88PDF%E5%8F%8Aoffice%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="korbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kangbing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            在线预览PDF及office文件
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-28T00:00:00+08:00">
+                2017-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/iOS" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="需求线上生成电子合同客户端预览">需求：线上生成电子合同，客户端预览。</h4>
+
+<p><img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fhziu4tsang20ac0ige0o.gif" alt="" /></p>
+
+<p>这里提供三种方法，不仅限于pdf，经测试，office格式文件同样支持。第二三种方法只能浏览本地文件，所以线上的必须先下载在浏览。</p>
+
+<h3 id="第一种方法最简单方便webview加载不仅能加载本地也能加载线上的">第一种方法最简单方便，webView加载。不仅能加载本地，也能加载线上的。</h3>
+
+<p>代码如下:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>UIWebView *webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+webView.backgroundColor = [UIColor whiteColor];
+NSURL *filePath = [NSURL URLWithString:[[NSBundle mainBundle] pathForResource:@"pptdemo" ofType:@"pptx"]];
+NSURLRequest *request = [NSURLRequest requestWithURL: filePath];
+[webView loadRequest:request];
+[webView setScalesPageToFit:YES];
+[self.view addSubview:webView];
+</code></pre>
+</div>
+
+<h3 id="第二种方法本地的话就直接加载bundle返回url线上的先下载到本地再进行预览">第二种方法:本地的话，就直接加载bundle，返回url。线上的先下载到本地，再进行预览。</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>NSString *name = @"demo.pdf";
+// 检查本地是否存在
+if ([self isFileExist:name]) {
+    
+    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
+    NSString *pathString = [path stringByAppendingFormat:@"/%@",name];
+    NSLog(@"path:%@", pathString);
+    self.pathString = pathString;
+}else{
+    
+    //重新下载
+    [self loadHttpPdfWithUrl:@"http://192.168.1.25/demo.pdf"];
+    
+}
+
+// 方法2
+QLPreviewController *QLPVC = [[QLPreviewController alloc] init];
+self.QLPVC = QLPVC;
+QLPVC.delegate = self;
+QLPVC.dataSource = self;
+[self presentViewController:QLPVC animated:YES completion:nil];
+</code></pre>
+</div>
+
+<p><strong>判断是否已经下载</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>- (BOOL)isFileExist:(NSString *)fileName{
+
+    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
+
+    NSString *filePath = [path stringByAppendingPathComponent:fileName];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL result = [fileManager fileExistsAtPath:filePath];
+    
+    NSLog(@"这个文件是否存在%d",result);
+    return result;
+}
+</code></pre>
+</div>
+
+<p><strong>下载的操作</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>- (void)loadHttpPdfWithUrl:(NSString *)url{
+
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    //请求
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    //下载Task操作
+    _downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+        // totalUnitCount;     需要下载文件的总大小
+        // completedUnitCount; 当前已经下载的大小
+        NSLog(@"%f",1.0 * downloadProgress.completedUnitCount / downloadProgress.totalUnitCount);
+
+        
+    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        //返回的这个URL就是文件的位置的路径
+        NSString *documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+        NSString *path = [documentPath stringByAppendingPathComponent:response.suggestedFilename];
+        NSLog(@"%@",path);
+        return [NSURL fileURLWithPath:path];
+        
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        //  下载完成
+        NSString *localFilePath = [filePath path];// 将NSURL转成NSString
+        self.pathString = localFilePath;
+        NSLog(@"已经下载完成的路径%@",localFilePath);
+        // 下载完成刷新, 加载
+        [self.QLPVC reloadData];
+        NSLog(@"%@",error);
+        
+    }];
+    // 开始下载
+    [_downloadTask resume];
+
+}
+</code></pre>
+</div>
+
+<p><strong>实现代理方法</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>- (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)controller{
+    return self.pathString == nil ? 0 : 1;
+}
+- (id&lt;QLPreviewItem&gt;)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index{
+    // 加载本地
+    //    NSString *path = [[NSBundle mainBundle] pathForResource:@"pptdemo" ofType:@"pptx"];
+    //    return [NSURL fileURLWithPath:path];
+    
+    // 加载网络下载的, 其实也在本地沙盒了
+    return [NSURL fileURLWithPath:self.pathString];;
+}
+</code></pre>
+</div>
+
+<h3 id="第三种本地有就直接创建实现代理方法线上的下载完成以后创建控制器实现与方法二类似">第三种本地有就直接创建，实现代理方法。线上的下载完成以后创建控制器。实现与方法二类似。</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>NSString *path = [[NSBundle mainBundle] pathForResource:@"pptdemo" ofType:@"pptx"];
+UIDocumentInteractionController *docVC = [UIDocumentInteractionController interactionControllerWithURL:[NSURL fileURLWithPath:path]];
+docVC.delegate = self;
+[docVC presentPreviewAnimated:YES];
+</code></pre>
+</div>
+
+<p><strong>实现代理</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#pragma mark 方法3代理
+#pragma mark - UIDocumentInteractionControllerDelegate
+- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)controller{
+    
+    return self;
+}
+
+- (UIView*)documentInteractionControllerViewForPreview:(UIDocumentInteractionController*)controller {
+    
+    return self.view;
+}
+
+- (CGRect)documentInteractionControllerRectForPreview:(UIDocumentInteractionController*)controller {
+    return CGRectMake(0, 30, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+}
+</code></pre>
+</div>
+
+<p><strong>这里下载用的AFN，为了模拟测试，把文件放到本机apache了(mac自带)。电脑本机ip就是服务器地址。路径/Library/WebServer/Documents下。</strong></p>
+
+<p>代码已上传至 <a href="https://github.com/kangbingbing/KBPreviewPDF">github</a></p>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/iOS" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/php/2017/08/05/mac%E4%B8%8A%E9%85%8D%E7%BD%AEphp/" rel="next" title="Mac上配置php">
+                <i class="fa fa-chevron-left"></i> Mac上配置php
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/ios/2017/07/25/%E5%9F%BA%E4%BA%8EGPUImage%E7%9A%84%E7%9B%B8%E6%9C%BA%E6%BB%A4%E9%95%9C/" rel="prev" title="基于GPUImage的相机滤镜">
+                基于GPUImage的相机滤镜 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.png"
+               alt="korbin" />
+          <p class="site-author-name" itemprop="name">korbin</p>
+           
+              <p class="site-description motion-element" itemprop="description">每天进步一小步!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/kangbingbing" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/kangbingbing" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-3"> <a class="nav-link" href="#第一种方法最简单方便webview加载不仅能加载本地也能加载线上的"> <span class="nav-number">1</span> <span class="nav-text">第一种方法最简单方便，webView加载。不仅能加载本地，也能加载线上的。</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#第二种方法本地的话就直接加载bundle返回url线上的先下载到本地再进行预览"> <span class="nav-number">2</span> <span class="nav-text">第二种方法:本地的话，就直接加载bundle，返回url。线上的先下载到本地，再进行预览。</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#第三种本地有就直接创建实现代理方法线上的下载完成以后创建控制器实现与方法二类似"> <span class="nav-number">3</span> <span class="nav-text">第三种本地有就直接创建，实现代理方法。线上的下载完成以后创建控制器。实现与方法二类似。</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child">
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">korbin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      您是本站第
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访问者
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

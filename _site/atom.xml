@@ -1,0 +1,934 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/atom.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-26T14:34:42+08:00</updated><id>http://localhost:4000/</id><title type="html">kangbing</title><subtitle>每天进步一小步!</subtitle><author><name>korbin</name></author><entry><title type="html">发布代码到CocoaPods</title><link href="http://localhost:4000/ios/2018/02/26/%E5%8F%91%E5%B8%83%E4%BB%A3%E7%A0%81%E5%88%B0CocoaPods/" rel="alternate" type="text/html" title="发布代码到CocoaPods" /><published>2018-02-26T00:00:00+08:00</published><updated>2018-02-26T00:00:00+08:00</updated><id>http://localhost:4000/ios/2018/02/26/%E5%8F%91%E5%B8%83%E4%BB%A3%E7%A0%81%E5%88%B0CocoaPods</id><content type="html" xml:base="http://localhost:4000/ios/2018/02/26/%E5%8F%91%E5%B8%83%E4%BB%A3%E7%A0%81%E5%88%B0CocoaPods/">&lt;p&gt;为自己的项目创建 podspec 文件。，首先通过如下命令初始化一个podspec文件：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pod spec create your_pod_spec_name
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;your_pod_spec_name即KBCycleScrollView&lt;/p&gt;
+
+&lt;p&gt;该命令执行之后，CocoaPods 会生成一个名为your_pod_spec_name.podspec的文件，然后我们修改其中的相关内容即可。&lt;/p&gt;
+
+&lt;p&gt;具体配置信息如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Pod::Spec.new do |s|
+
+  s.name         = &quot;KBCycleScrollView&quot;
+  s.version      = &quot;0.0.1&quot;
+  s.summary      = &quot;A short description of KBCycleScrollView.&quot;
+
+  s.homepage     = &quot;https://github.com/kangbingbing/KBCycleScrollView&quot;
+
+  s.license      = &quot;MIT&quot;
+
+  s.author             = { &quot;kang&quot; =&amp;gt; &quot;493043919@qq.com&quot; }
+  s.platform     = :ios
+  s.platform     = :ios, &quot;7.0&quot;
+
+  s.source       = { :git =&amp;gt; &quot;https://github.com/kangbingbing/KBCycleScrollView.git&quot;, :tag =&amp;gt; &quot;0.0.1&quot; }
+
+  s.source_files  = &quot;KBCycleScrollView&quot;, &quot;KBCycleScrollView/KBCycleScrollView/**/*.{h,m}&quot;
+
+  s.framework  = &quot;UIKit&quot;
+
+  s.requires_arc = true
+  
+  s.dependency 'SDWebImage', '&amp;gt;= 4.0.0'
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;注意s.source_files文件路径配置，文件夹结构如下:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fottgmdktdj20m106tdhi.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;验证spce文件是否可用&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pod spec lint KBCycleScrollView.podspec --use-libraries --allow-warnings
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fottiuuki6j20hz09j3zt.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;注意项目由于依赖第三方库, 务必加上 &lt;strong&gt;–use-libraries&lt;/strong&gt; 否则会验证失败。&lt;/p&gt;
+
+&lt;p&gt;注册 CocoaPods 账号, 邮箱会收到一个验证链接&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pod trunk register 493043919@qq.com 'kangbing'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fottlpxvitj20hv010dfu.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;点击邮箱链接完成验证&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fott09thgfj20x30czq4j.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;发布&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pod trunk push
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fotuk3ey38j20hy0aq0u7.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><author><name>korbin</name></author><category term="iOS" /><category term="iOS" /><summary type="html">为自己的项目创建 podspec 文件。，首先通过如下命令初始化一个podspec文件：</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/markdown.jpg" /></entry><entry><title type="html">路由器灯光控制方案</title><link href="http://localhost:4000/other/2018/01/11/%E8%B7%AF%E7%94%B1%E5%99%A8%E7%81%AF%E5%85%89%E6%8E%A7%E5%88%B6%E6%96%B9%E6%A1%88/" rel="alternate" type="text/html" title="路由器灯光控制方案" /><published>2018-01-11T00:00:00+08:00</published><updated>2018-01-11T00:00:00+08:00</updated><id>http://localhost:4000/other/2018/01/11/%E8%B7%AF%E7%94%B1%E5%99%A8%E7%81%AF%E5%85%89%E6%8E%A7%E5%88%B6%E6%96%B9%E6%A1%88</id><content type="html" xml:base="http://localhost:4000/other/2018/01/11/%E8%B7%AF%E7%94%B1%E5%99%A8%E7%81%AF%E5%85%89%E6%8E%A7%E5%88%B6%E6%96%B9%E6%A1%88/">&lt;h3 id=&quot;路由器灯光控制方案&quot;&gt;路由器灯光控制方案&lt;/h3&gt;
+
+&lt;p&gt;MT7620系列指示灯控制方案，启动时红灯，启动后黄灯，有Internet连接蓝灯，无Internet连接黄灯。&lt;/p&gt;
+
+&lt;p&gt;在路由器启动之后执行 里面添加&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mtk_gpio -d 8 1    #关闭红灯
+mtk_gpio -d 11 1   #开启黄灯
+logger -t &quot;【路由器启动后】&quot; &quot;开启黄灯&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在路由器关闭前执行 里面添加&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mtk_gpio -d 10 0   #关闭蓝灯
+mtk_gpio -d 11 0   #关闭黄灯
+mtk_gpio -d 8 0    #开启红灯
+logger -t &quot;【路由器关闭前】&quot; &quot;开启红灯&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;自定义设置里面-网络检测下面将网络检测模式调为-持续检测，在网络运行状态改变时运行 脚本里面添加以下代码&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;logger -t &quot;【Internet检测】&quot; &quot;Internet检测开始&quot;
+#超时时间  
+timeout=5  
+#目标网站  
+target=www.baidu.com  
+#获取响应状态码  
+ret_code=`curl -I -s --connect-timeout $timeout $target -w %{http_code} | tail -n1`  
+    if [ &quot;x$ret_code&quot; = &quot;x200&quot; ]; then  
+       #网络畅通
+       mtk_gpio -d 8 1    #关闭红灯
+       mtk_gpio -d 11 0   #关闭黄灯
+       mtk_gpio -d 10 1   #开启蓝灯
+       logger -t &quot;【Internet检测】&quot; &quot;互联网在线，已切换蓝灯&quot;
+    else  
+       #网络不畅通
+       mtk_gpio -d 8 1    #关闭红灯
+       mtk_gpio -d 10 0   #关闭蓝灯
+       mtk_gpio -d 11 1   #开启黄灯
+       logger -t &quot;【Internet检测】&quot; &quot;互联网已断开，已切换黄灯&quot;
+    fi
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>korbin</name></author><category term="Other" /><category term="Other" /><summary type="html">路由器灯光控制方案</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/markdown.jpg" /></entry><entry><title type="html">利用python pdf转图片</title><link href="http://localhost:4000/python/2017/10/12/%E5%88%A9%E7%94%A8python-pdf%E8%BD%AC%E5%9B%BE%E7%89%87/" rel="alternate" type="text/html" title="利用python pdf转图片" /><published>2017-10-12T00:00:00+08:00</published><updated>2017-10-12T00:00:00+08:00</updated><id>http://localhost:4000/python/2017/10/12/%E5%88%A9%E7%94%A8python%20pdf%E8%BD%AC%E5%9B%BE%E7%89%87</id><content type="html" xml:base="http://localhost:4000/python/2017/10/12/%E5%88%A9%E7%94%A8python-pdf%E8%BD%AC%E5%9B%BE%E7%89%87/">&lt;p&gt;环境配置&lt;/p&gt;
+
+&lt;p&gt;安装ImageMagick&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew install imagemagick
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这里有个坑，brew安装都是7.x版本，使用wand时会出错，需要你安装6.x版本。
+解决办法：&lt;/p&gt;
+
+&lt;p&gt;1.安装6.x版本&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew install imagemagick@6
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;2.取消链接7.x版本&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew unlink imagemagick
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Unlinking /usr/local/Cellar/imagemagick/7.0.7-4… 71 symlinks removed&lt;/p&gt;
+
+&lt;p&gt;3.强制链接6.x版本&lt;/p&gt;
+
+ 	brew link imagemagick@6 –force
+
+&lt;p&gt;Linking /usr/local/Cellar/imagemagick@6/6.9.9-15… 75 symlinks created&lt;/p&gt;
+
+&lt;p&gt;4.export环境变量
+ echo ‘export PATH=”/usr/local/opt/imagemagick@6/bin:$PATH”’ » ~/.bash_profile&lt;/p&gt;
+
+&lt;p&gt;ok，以上解决imagemagick版本问题。&lt;/p&gt;
+
+&lt;p&gt;代码如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/python&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#-*- coding: utf-8 -*-&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#encoding=utf-8&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;wand.image&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Image&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;PyPDF2&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PdfFileReader&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;logging&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;warnings&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;multiprocessing&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;re&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;logs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# 禁用警告&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;warnings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filterwarnings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ignore'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# 设置logging&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'logs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mkdir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'logs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;log_filename&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'logs/pdf2img.log'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;basicConfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;log_filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filemode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;level&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DEBUG&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%(asctime)&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%(filename)&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s [&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%(levelname)&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s] &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%(message)&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;datefmt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'[&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Y-&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;m-&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;d &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;H:&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;M:&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;S]'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                        &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;single_page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;re&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;[|&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;]'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# 页码&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;page_num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;split&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;single_page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;single_page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resolution&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;converted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;converted&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compression_quality&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;45&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;newfilename&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;file_text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;page_num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'.jpg'&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;converted&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;newfilename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;multiprocessing&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;current_process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;''&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newfilename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isfile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;newfilename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;warning&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'page of file is not found:[&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s]'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;newfilename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_pages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PdfFileReader&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'rb'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getNumPages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;logs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;get_source&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'设计规范模板.pdf'&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;file_text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;splitext&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;pages&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get_pages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;process_num&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;multiprocessing&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cpu_count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;pool&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;multiprocessing&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Pool&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;processes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;process_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;page_list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_source&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;[&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;]&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'=========&amp;gt;&amp;gt;&amp;gt;&amp;gt; Start [Process num: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s]'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;process_num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;pool&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;page_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;pool&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;pool&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Page Size:&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pages&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&amp;lt;&amp;lt;&amp;lt;========= End'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Exception&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;logging&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Page Size:0'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;运行&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python pdf2img.py
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fkffu7jx45j20br086q3u.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><author><name>korbin</name></author><category term="Python" /><category term="Python" /><summary type="html">环境配置</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/markdown.jpg" /></entry><entry><title type="html">Python爬虫：爬取图片进阶篇</title><link href="http://localhost:4000/python/2017/09/26/python%E7%88%AC%E8%99%AB-%E7%88%AC%E5%8F%96%E5%9B%BE%E7%89%87%E8%BF%9B%E9%98%B6%E7%AF%87/" rel="alternate" type="text/html" title="Python爬虫：爬取图片进阶篇" /><published>2017-09-26T00:00:00+08:00</published><updated>2017-09-26T00:00:00+08:00</updated><id>http://localhost:4000/python/2017/09/26/python%E7%88%AC%E8%99%AB:%E7%88%AC%E5%8F%96%E5%9B%BE%E7%89%87%E8%BF%9B%E9%98%B6%E7%AF%87</id><content type="html" xml:base="http://localhost:4000/python/2017/09/26/python%E7%88%AC%E8%99%AB-%E7%88%AC%E5%8F%96%E5%9B%BE%E7%89%87%E8%BF%9B%E9%98%B6%E7%AF%87/">&lt;p&gt;今天目标站&lt;a href=&quot;http://www.mmjpg.com/&quot;&gt;妹子图&lt;/a&gt;，博眼球真是费了心。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;三步走&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;获取这个网址的html，解析拿到图集的网址&lt;/li&gt;
+  &lt;li&gt;访问图集的地址，找到图片的下载地址&lt;/li&gt;
+  &lt;li&gt;下载图片&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjwzb0180nj20s10kfqi9.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;获取这个网址的html，解析拿到图集的网址&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;每页一共15套图的地址，可根据页码进行访问&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;# html = urllib2.urlopen('http://www.mmjpg.com').read()
+html = urllib2.urlopen('http://www.mmjpg.com/home/%s' % page).read()
+# 解析html
+soup = BeautifulSoup(html)
+spanResult = soup.findAll('span',attrs={&quot;class&quot;:&quot;title&quot;})
+
+for a in spanResult:
+    name = a.find('a').string
+    href = a.find('a').get('href')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjx0zk4s6wj20sc0mnqfy.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;访问图集的地址，找到图片的下载地址&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;获取每一套图总数量&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;linkreq = urllib2.Request(href)
+linkresponse = urllib2.urlopen(linkreq)
+htmlres = linkresponse.read()
+soups = BeautifulSoup(htmlres)
+imageResult = soups.findAll('div',attrs={&quot;id&quot;:&quot;content&quot;})
+# print imageResult
+totalDiv = soups.find('div',attrs={'class':&quot;page&quot;})
+#  每套图的总数量
+aCount = totalDiv.findAll('a')[-2].string
+print aCount
+
+for div in imageResult:
+    # 得到所有的img标签
+    image = div.find('img')
+    # print image
+    link = image.get('src')
+    # print link
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;下载图片&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;根据获取的图片总数量下载图片&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; # 拿到链接截取拼接
+ for x in range(0,int(aCount)):
+     x += 1
+     urlresult = '%s%s%s' % (link[:-5], x, '.jpg')
+     filePath = '/Users/kangbing/Desktop/image/%s%s.jpg' % (name,x)
+     urllib.urlretrieve(urlresult,filePath)
+     # print urlresult
+     # print filePath.encode('utf-8')	
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjwzbse6nwg20ac0isx6p.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;downLoadAllImage() &lt;strong&gt;传入页码下载某一页&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;totalPage(2) 	&lt;strong&gt;传入页码下载总页数&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;最终代码：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/python&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#-*- coding: utf-8 -*-&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#encoding=utf-8&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;urllib2&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;urllib&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;BeautifulSoup&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BeautifulSoup&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# 根据传入页码下载，默认下载首页，每页15&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;downLoadAllImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# html = urllib2.urlopen('http://www.mmjpg.com').read()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;urllib2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urlopen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'http://www.mmjpg.com/home/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# 解析html&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;soup&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BeautifulSoup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;spanResult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;soup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'span'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;class&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;spanResult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;href&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'href'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;linkreq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;urllib2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;href&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;linkresponse&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;urllib2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urlopen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;linkreq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;htmlres&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linkresponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;soups&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BeautifulSoup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;htmlres&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;imageResult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;soups&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'div'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;content&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;# print imageResult&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;totalDiv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;soups&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'div'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'class'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;page&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;#  每套图的总数量&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;aCount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;totalDiv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aCount&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;# print totalDiv&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imageResult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;# 得到所有的img标签&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'img'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;# print image&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'src'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;# print link&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;# 拿到链接截取拼接&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;aCount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)):&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;urlresult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'.jpg'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/Users/kangbing/Desktop/image/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s.jpg'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;urllib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urlretrieve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urlresult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;c&quot;&gt;# print urlresult&lt;/span&gt;
+                &lt;span class=&quot;c&quot;&gt;# print filePath.encode('utf-8')&lt;/span&gt;
+
+
+&lt;span class=&quot;c&quot;&gt;# 根据传入页码下载前n页，传5就是前5页 共n*15，默认1页即首页&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;totalPage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;xrange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;downLoadAllImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;downLoadAllImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# totalPage(2)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjx3sz7616j20a70evjsm.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;温馨提示:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;身体不好的学习技术就好了，图片还是删了吧。。。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;代码已上传至 &lt;a href=&quot;https://github.com/kangbingbing/python&quot;&gt;github&lt;/a&gt;&lt;/p&gt;</content><author><name>korbin</name></author><category term="Python" /><category term="Python" /><summary type="html">今天目标站妹子图，博眼球真是费了心。</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/markdown.jpg" /></entry><entry><title type="html">Python爬虫：爬取小说芈月传</title><link href="http://localhost:4000/python/2017/09/25/python%E7%88%AC%E8%99%AB-%E7%88%AC%E5%8F%96%E5%B0%8F%E8%AF%B4%E8%8A%88%E6%9C%88%E4%BC%A0/" rel="alternate" type="text/html" title="Python爬虫：爬取小说芈月传" /><published>2017-09-25T00:00:00+08:00</published><updated>2017-09-25T00:00:00+08:00</updated><id>http://localhost:4000/python/2017/09/25/python%E7%88%AC%E8%99%AB:%E7%88%AC%E5%8F%96%E5%B0%8F%E8%AF%B4%E8%8A%88%E6%9C%88%E4%BC%A0</id><content type="html" xml:base="http://localhost:4000/python/2017/09/25/python%E7%88%AC%E8%99%AB-%E7%88%AC%E5%8F%96%E5%B0%8F%E8%AF%B4%E8%8A%88%E6%9C%88%E4%BC%A0/">&lt;p&gt;前一篇已经写了如何用python获得图片，这篇看获得文本信息。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;分析网页结构&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;整个流程基本一样，先打开网站找到想要的文本信息，小说地址 http://www.136book.com/mieyuechuanheji/， 打开右键查看源码如图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjvxbzx70bj20up0nhgtf.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以看到章节列表ol标签里class=clearfix&lt;/p&gt;
+
+&lt;p&gt;获取所有的class为clearfix的ol标签&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;url = 'http://www.136book.com/mieyuechuanheji/'    req = urllib2.Request(url)    response = urllib2.urlopen(req)    html = response.read()    soup = BeautifulSoup(html)    divResult = soup.findAll('ol',attrs={&quot;class&quot;:&quot;clearfix&quot;})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;遍历ol标签拿到a标签的文本及连接&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for div in divResult:
+    # 拿到所有的a标签
+    aarray = div.findAll('a')
+    for a in aarray:
+        print a.string
+        link = a.get('href')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;link就是每一章节的链接，点击某个章节，查看源码如图：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjvxd8aa6hj20od0kxdtj.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;小说内容在 id=content 的div，获取文本内容&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;linkreq = urllib2.Request(link)
+linkresponse = urllib2.urlopen(linkreq)
+   	htmlres = linkresponse.read()
+   	soups = BeautifulSoup(htmlres)
+   	textResult = soups.findAll('div',attrs={&quot;id&quot;:&quot;content&quot;})
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;遍历内容中所有的p标签，写入带txt文件中&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for p in textResult:
+    parray = p.findAll('p')
+    for string in parray:
+        f.write(string.string)
+        f.write('\n\n')
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;正在下载：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjvxdy8cp5j20mn0p843t.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;下载完成：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjvxf7taiij20bo07pmyn.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;全部源码如下&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/python&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#-*- coding: utf-8 -*-&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#encoding=utf-8&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;urllib2&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;urllib&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;BeautifulSoup&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BeautifulSoup&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;sys&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;reload&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;sys&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setdefaultencoding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'utf-8'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ 
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'http://www.136book.com/mieyuechuanheji/'&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;req&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;urllib2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;urllib2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urlopen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;soup&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BeautifulSoup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;divResult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;soup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'ol'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;class&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;clearfix&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;divResult&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;divResult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;# 得到所有的a标签&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;aarray&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'/Users/kangbing/Desktop/python/miyuezhuan.txt'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'w'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;aarray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'href'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;linkreq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;urllib2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Request&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;linkresponse&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;urllib2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urlopen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;linkreq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;htmlres&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;linkresponse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;soups&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BeautifulSoup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;htmlres&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;textResult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;soups&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'div'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;id&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;content&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+            
+            &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;textResult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;parray&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'p'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;整个爬取小说过程及套路基本都这样，当然获取每个节点的方法有优化的地方，同时可以参考BeautifulSoup这个库的文档，尝试用别的更简单的方法实现，文档地址：https://www.crummy.com/software/BeautifulSoup/bs4/doc/index.zh.html&lt;/p&gt;</content><author><name>korbin</name></author><category term="Python" /><category term="Python" /><summary type="html">前一篇已经写了如何用python获得图片，这篇看获得文本信息。</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/markdown.jpg" /></entry><entry><title type="html">Python初体验：获取下载网页上的图片</title><link href="http://localhost:4000/python/2017/09/23/python%E5%88%9D%E4%BD%93%E9%AA%8C-%E8%8E%B7%E5%8F%96%E4%B8%8B%E8%BD%BD%E7%BD%91%E9%A1%B5%E4%B8%8A%E7%9A%84%E5%9B%BE%E7%89%87/" rel="alternate" type="text/html" title="Python初体验：获取下载网页上的图片" /><published>2017-09-23T00:00:00+08:00</published><updated>2017-09-23T00:00:00+08:00</updated><id>http://localhost:4000/python/2017/09/23/python%E5%88%9D%E4%BD%93%E9%AA%8C:%E8%8E%B7%E5%8F%96%E4%B8%8B%E8%BD%BD%E7%BD%91%E9%A1%B5%E4%B8%8A%E7%9A%84%E5%9B%BE%E7%89%87</id><content type="html" xml:base="http://localhost:4000/python/2017/09/23/python%E5%88%9D%E4%BD%93%E9%AA%8C-%E8%8E%B7%E5%8F%96%E4%B8%8B%E8%BD%BD%E7%BD%91%E9%A1%B5%E4%B8%8A%E7%9A%84%E5%9B%BE%E7%89%87/">&lt;p&gt;&lt;strong&gt;利用python爬网站上的图片并下载&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjtfeai4coj209g05bmx8.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;打开链接https://www.douban.com/photos/album/1652407753/, 如图是一个相册.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjtdob1s90j20pw0panhx.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;如何下载网页上的图片, 如下图:&lt;/strong&gt;
+&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjtdoq0g7rj20bv0c6jta.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;python 有很多强大的库, beautifulsoup 这个库解析html非常好用&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;安装BeautifulSoup&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo pip install BeautifulSoup
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;如果出现-bash: pip: command not found，先安装 pip&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo easy_install pip
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;网页右键查看源码, CMD+F 查找这个图片所在位置
+&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjtdozbuxfj20re0oc7b7.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;图片链接在div标签下的img标签里，现在需要做的就是把这种类型的div从所有html中分离出来，但是这个div标签有个属性叫做class，属性的值是class=”photo_wrap”。拿到这个div集合，遍历里面的img标签，得到图片地址，再下载到本地。代码如下：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/python&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#-*- coding: utf-8 -*-&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#encoding=utf-8&lt;/span&gt;
+
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;urllib2&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;urllib&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;BeautifulSoup&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BeautifulSoup&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;downLoadAllImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;():&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;html&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;urllib2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urlopen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'https://www.douban.com/photos/album/1652407753/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# 解析html&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;soup&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BeautifulSoup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;html&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# 从html里找到所有class 为 photo_wrap 的div&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;divResult&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;soup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'div'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;attrs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;class&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;photo_wrap&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;divResult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;c&quot;&gt;# 得到所有的img标签&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;imageArray&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;findAll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'img'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imageArray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;# 拿到img标签的链接&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;link&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'src'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;# 拼接路径&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/Users/kangbing/Desktop/images/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;s.jpg'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;
+            &lt;span class=&quot;c&quot;&gt;# 下载并保存到本地&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;urllib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;urlretrieve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filePath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;__name__&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__main__'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;downLoadAllImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;注意代码格式，python代码结尾不用分号，但是对格式要求非常严格，少一个或者多一个Tap就报错。
+终端运行 image.py 文件就开始自动下载图片了。（记得新建images存放图片的文件夹）&lt;/p&gt;</content><author><name>korbin</name></author><category term="Python" /><category term="Python" /><summary type="html">利用python爬网站上的图片并下载</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/markdown.jpg" /></entry><entry><title type="html">iOS反动态调试</title><link href="http://localhost:4000/ios/2017/09/18/iOS%E5%8F%8D%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/" rel="alternate" type="text/html" title="iOS反动态调试" /><published>2017-09-18T00:00:00+08:00</published><updated>2017-09-18T00:00:00+08:00</updated><id>http://localhost:4000/ios/2017/09/18/iOS%E5%8F%8D%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95</id><content type="html" xml:base="http://localhost:4000/ios/2017/09/18/iOS%E5%8F%8D%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95/">&lt;p&gt;逆向开发者会使用LLDB对应用进行调试，LLDB是Xcode中的动态调试工具。&lt;/p&gt;
+
+&lt;p&gt;反调试也就是屏蔽调试器挂载&lt;/p&gt;
+
+&lt;h4 id=&quot;使用-ptrace-函数&quot;&gt;使用 ptrace 函数&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;typedef int (*ptrace_ptr_t)(int _request, pid_t _pid, caddr_t _addr, int _data);
+
+#if !defined(PT_DENY_ATTACH)
+
+#define PT_DENY_ATTACH 31
+
+#endif  // !defined(PT_DENY_ATTACH)
+
+
+void disable_gdb() {
+
+void *handle = dlopen(0, RTLD_GLOBAL | RTLD_NOW);
+
+ptrace_ptr_t ptrace_ptr = dlsym(handle, &quot;ptrace&quot;);
+
+ptrace_ptr(PT_DENY_ATTACH, 0, 0, 0);
+
+dlclose(handle);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;disable_gdb 去阻止调试器，但是通过这种方法很容易被修改。运行时断点&lt;strong&gt;ptrace&lt;/strong&gt;直接 return，就破解了。&lt;/p&gt;
+
+&lt;p&gt;用汇编去调用ptrace，这样就无法通过函数替换来实现反调试了，必须通过修改二进制文件中的汇编代码才能反调试。攻击者可以使用nop来移除掉命令svc #0x80，但是这种破解难度就比前面的要高很多。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;static __attribute__((always_inline)) void debug()
+{
+#ifdef __arm64__
+    __asm__(&quot;mov X0, #31 \t\n&quot;
+            &quot;mov X1, #0 \t\n&quot;
+            &quot;mov X2, #0 \t\n&quot;
+            &quot;mov X3, #0 \t\n&quot;
+            &quot;mov w16, #26 \t\n&quot; // ip1 指针。
+            &quot;svc #0x80&quot;
+            );
+#elif __arm__
+    __asm__(
+            &quot;mov r0, #31 \t\n&quot;
+            &quot;mov r1, #0 \t\n&quot;
+            &quot;mov r2, #0 \t\n&quot;
+            &quot;mov r3, #0 \t\n&quot;
+            &quot;mov ip, #26 \t\n&quot;
+            &quot;svc #0x80&quot;
+            );
+#endif
+    return;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;使用的时候直接调用debug()，同时可以在多出调用debug()，增加破解难度。&lt;/p&gt;
+
+&lt;h4 id=&quot;sysctl-检测到调试器后使用-exit-1-强制退出程序这样就无法继续&quot;&gt;sysctl 检测到调试器后使用 exit(-1) 强制退出程序，这样就无法继续&lt;/h4&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;static int is_debugged(){
+	int name[4] = {CTL_KERN,KERN_PROC,KERN_PROC_PID,getpid()};
+    struct kinfo_proc Kproc;
+    size_t kproc_size = sizeof(Kproc);
+    
+    memset((void*)&amp;amp;Kproc, 0, kproc_size);
+    
+    if (sysctl(name, 4, &amp;amp;Kproc, &amp;amp;kproc_size, NULL, 0) == -1) {
+        perror(&quot;sysctl error \n &quot;);
+        exit(-1);
+    }
+    
+    return (Kproc.kp_proc.p_flag &amp;amp; P_TRACED) ? 1 : 0;
+}
+	
+	
+if (is_debugged() == YES) {
+    NSLog(@&quot;is_debugged &quot;);
+    exit(-1);
+}else{
+    NSLog(@&quot;not is_debugged&quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;以上两种方法基本可以防止一般hacker动态调试app，具体深入研究可以参考http://bbs.iosre.com&lt;/p&gt;
+
+&lt;p&gt;参考资料：http://www.jianshu.com/p/122f9e4db055
+		http://bbs.iosre.com/t/7-2-0-ios/770/14&lt;/p&gt;</content><author><name>korbin</name></author><category term="iOS" /><category term="iOS" /><summary type="html">逆向开发者会使用LLDB对应用进行调试，LLDB是Xcode中的动态调试工具。</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/markdown.jpg" /></entry><entry><title type="html">动态生成appIcon(加水印)</title><link href="http://localhost:4000/ios/2017/09/16/%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90AppIcon(%E5%8A%A0%E6%B0%B4%E5%8D%B0)/" rel="alternate" type="text/html" title="动态生成appIcon(加水印)" /><published>2017-09-16T00:00:00+08:00</published><updated>2017-09-16T00:00:00+08:00</updated><id>http://localhost:4000/ios/2017/09/16/%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90AppIcon(%E5%8A%A0%E6%B0%B4%E5%8D%B0)</id><content type="html" xml:base="http://localhost:4000/ios/2017/09/16/%E5%8A%A8%E6%80%81%E7%94%9F%E6%88%90AppIcon(%E5%8A%A0%E6%B0%B4%E5%8D%B0)/">&lt;p&gt;首先,  安装ImageMagick，ImageMagick是一个非常强大的图形处理库，专门通过终端进行。你可以非常简单地通过Homebrew来安装ImageMagick。&lt;/p&gt;
+
+&lt;p&gt;1  更新brew&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;2	安装ImageMagick&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew install ImageMagick
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;3	接下来，安装Ghostscript，因为你将使用的ImageMagick会依赖它。它提供了支持ImageMagick的字体。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew install ghostscript
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;4 尝试更改一张图片, 先切换路径到图片所在文件夹&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjlhrxas16j205303ra9z.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;执行&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;convert icon.png -fill black -font Times-Bold -pointsize 18 -gravity south -annotate 0 &quot;kangbing&quot; icon1.png
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjlhsf4qeaj20bo08zjsb.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;icon.png 是原文件名;&lt;/p&gt;
+
+&lt;p&gt;fill black 设置文本为白色;&lt;/p&gt;
+
+&lt;p&gt;font Times-Bold 利用ImageMagick使用的字体;&lt;/p&gt;
+
+&lt;p&gt;pointsize 18 设置字体的大小18;&lt;/p&gt;
+
+&lt;p&gt;gravity south 文本与图片的底部对齐&lt;/p&gt;
+
+&lt;p&gt;annotate 0 “kangbing” 利用ImageMagick使带有“kangbing”文本的图片旋转的度数为0度；&lt;/p&gt;
+
+&lt;p&gt;icon1.png 	最后输出的文件名。&lt;/p&gt;
+
+&lt;p&gt;5	现在已经成功生成一张图片, 下面就需要在Xcode里集成命令, 生成图片, 在进行打包.
+创建一个工程icon, 并把icon放进工程.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjlhwim1dlj20ur0bw0vy.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;编译之前先运行脚本, 创建脚本&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjlhz3nar6j20rz08qact.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;创建成功, 如下图&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjlhzfzixdj20v00flacy.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;打印编译运行项目后文件所在路径,  右键查看包内容, 可看到ipa资源
+echo “${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}”&lt;/p&gt;
+
+&lt;p&gt;打印项目文件所在的文件夹路径
+echo “${SRCROOT}”&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjli15odp0j20sv0d0n06.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;查看编译log&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjlj8nphp9j20p40c2q6c.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;第一个路径是项目编译运行后所在的文件路径, 包资源里有生成的icon图, 也就是运行在手机里的icon&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjli5zv6w1j209a08nwfq.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;第二个路径是我们本地项目所在路径, 首先拿到本地icon&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjli93xx98j20gl07b3zr.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在进行加水印文字, 覆盖第一个路径里.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PATH=${PATH}:/usr/local/bin
+
+IPA_PATH=&quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AppIcon60x60@2x.png&quot;
+
+LOCAL_PATH=$(find ${SRCROOT} -name &quot;AppIcon60@2x.png&quot;)
+
+convert &quot;${LOCAL_PATH}&quot; -fill black -font Times-Bold -pointsize 18 -gravity south -annotate 0 &quot;`date +%m-%d/%H:%m`&quot; &quot;${IPA_PATH}&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;添加到工程里&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjlietyh3xj20jt071jsd.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;运行后发现已成功生成&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjligg13eoj20aa0hv0u3.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;目前更改的只是@2x图片, @3x图片并没有被改变, 在5.5寸屏没有效果, 为了替换多张, 就写个函数多次调用, 同时为了便于测试识别是哪天发的包, 使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;date +%m-%d/%H:%m&lt;/code&gt; 获取当前打包时间. 如下:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function changeIcon () {
+
+PATH=${PATH}:/usr/local/bin
+
+IPA_PATH=&quot;${BUILT_PRODUCTS_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/$1&quot;
+
+LOCAL_PATH=$(find ${SRCROOT} -name $2)
+
+convert &quot;${LOCAL_PATH}&quot; -fill black -font Times-Bold -pointsize 18 -gravity south -annotate 0 &quot;`date +%m-%d/%H:%m`&quot; &quot;${IPA_PATH}&quot;
+
+}
+
+changeIcon &quot;AppIcon60x60@2x.png&quot; &quot;AppIcon60@2x.png&quot;
+
+changeIcon &quot;AppIcon60x60@3x.png&quot; &quot;AppIcon60@3x.png&quot;
+
+changeIcon &quot;AppIcon40x40@2x.png&quot; &quot;AppIcon40@2x.png&quot;
+
+changeIcon &quot;AppIcon40x40@3x.png&quot; &quot;AppIcon40@3x.png&quot;
+
+changeIcon &quot;AppIcon29x29@2x.png&quot; &quot;AppIcon29@2x.png&quot;
+
+changeIcon &quot;AppIcon29x29@3x.png&quot; &quot;AppIcon29@3x.png&quot;
+
+changeIcon &quot;AppIcon20x20@2x.png&quot; &quot;AppIcon20@2x.png&quot;
+
+changeIcon &quot;AppIcon20x20@3x.png&quot; &quot;AppIcon20@3x.png&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;如图, 已生成.
+&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fjliryhrdij20a10hs75o.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;同时脚本可单独拿出去配合jenkins使用, 当构建的时候执行bash t.sh, 然后打包完成, 自动上传蒲公英, fir等第三方分发平台.&lt;/p&gt;
+
+&lt;p&gt;参考资料 http://merowing.info/2013/03/overlaying-application-version-on-top-of-your-icon/&lt;/p&gt;</content><author><name>korbin</name></author><category term="iOS" /><category term="iOS" /><summary type="html">首先, 安装ImageMagick，ImageMagick是一个非常强大的图形处理库，专门通过终端进行。你可以非常简单地通过Homebrew来安装ImageMagick。</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/markdown.jpg" /></entry><entry><title type="html">OCLint 代码自动检查</title><link href="http://localhost:4000/ios/2017/09/06/OCLint-%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E6%A3%80%E6%9F%A5/" rel="alternate" type="text/html" title="OCLint 代码自动检查" /><published>2017-09-06T00:00:00+08:00</published><updated>2017-09-06T00:00:00+08:00</updated><id>http://localhost:4000/ios/2017/09/06/OCLint%20%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E6%A3%80%E6%9F%A5</id><content type="html" xml:base="http://localhost:4000/ios/2017/09/06/OCLint-%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E6%A3%80%E6%9F%A5/">&lt;h3 id=&quot;oclint-代码自动检查&quot;&gt;OCLint 代码自动检查&lt;/h3&gt;
+
+&lt;p&gt;首先安装 OClint&lt;/p&gt;
+
+&lt;p&gt;终端执行 brew install oclint&lt;/p&gt;
+
+&lt;p&gt;创建 t.sh 脚本文件， 以下是代码&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;myworkspace=Gold.xcworkspace # 替换workspace的名字
+myscheme=Gold # 替换scheme的名字
+xcodebuild -workspace $myworkspace -scheme $myscheme clean&amp;amp;&amp;amp;
+xcodebuild -workspace $myworkspace -scheme $myscheme \
+-configuration Debug \
+| xcpretty -r json-compilation-database -o compile_commands.json&amp;amp;&amp;amp;
+oclint-json-compilation-database -e Pods -- \
+-report-type html -o oclint_result.html \
+-rc LONG_LINE=200 \
+-max-priority-1=100000 \
+-max-priority-2=100000 \
+-max-priority-3=100000; \
+rm compile_commands.json;
+if [ -f ./oclint_result.html ]; then echo '-----分析完毕-----'
+else echo &quot;-----分析失败-----&quot;; fi
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;终端执行 bash t.sh&lt;/p&gt;
+
+&lt;p&gt;执行完毕后如下图&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fj9lf6h3f2j20hy06bjsz.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;同时生成.html文件,可直接在浏览器打开查看.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://ws1.sinaimg.cn/large/9e1008a3ly1fj9lfh5bibj205m07z74j.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;最方便的当然是 jenkins+oclint 自动构建, review.&lt;/p&gt;</content><author><name>korbin</name></author><category term="iOS" /><category term="iOS" /><summary type="html">OCLint 代码自动检查</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/markdown.jpg" /></entry><entry><title type="html">iOS多线程</title><link href="http://localhost:4000/ios/2017/08/10/iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="alternate" type="text/html" title="iOS多线程" /><published>2017-08-10T00:00:00+08:00</published><updated>2017-08-10T00:00:00+08:00</updated><id>http://localhost:4000/ios/2017/08/10/iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B</id><content type="html" xml:base="http://localhost:4000/ios/2017/08/10/iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B/">&lt;h3 id=&quot;dispatch_group_async&quot;&gt;&lt;strong&gt;dispatch_group_async&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;队列组, 异步执行, 等所有任务执行完毕, 会执行dispatch_group_notify, 这种之前应用场景是同时异步下载多张图片的操作, 等到所有图片现在完毕, 拿到图片进行拼接.&lt;/p&gt;
+
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dispatch_group_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;group&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dispatch_group_create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;NSMutableArray&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mua&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSMutableArray&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;YSPatientModel&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;groupModel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;members&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;dispatch_group_enter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SDWebImageManager&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sharedManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;downloadImageWithURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSURL&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;URLWithString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;model&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;progress&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;nil&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;completed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NSError&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SDImageCacheType&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cacheType&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BOOL&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;finished&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NSURL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imageURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+                &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mua&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;addObject&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//                        NSLog(@&quot;线程%@&quot;,[NSThread currentThread]);
+&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;dispatch_group_leave&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}];&lt;/span&gt;
+        
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;dispatch_group_notify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dispatch_get_main_queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;resultImage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UIImage&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;composeHeaderImageWithConstrainWH&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;groupIconImg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bounds&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;width&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;imagePathArray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mua&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;backgroundColor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RGB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;236&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;236&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;236&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)];&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;groupIconImg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;image&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resultImage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;dispatch_barrier_async-栅栏&quot;&gt;&lt;strong&gt;dispatch_barrier_async 栅栏&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;同一队列, 异步执行时，barrier块必须单独执行，不能与其他block并行。这只对并发队列有意义，并发队列如果发现接下来要执行的block是个barrier block，那么就一直要等到当前所有并发的block都执行完毕，才会单独执行这个barrier block代码块，等到这个barrier block执行完毕，再继续正常处理其他并发block。&lt;/p&gt;
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dispatch_queue_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dispatch_queue_create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Queue&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DISPATCH_QUEUE_CONCURRENT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;dispatch_async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;----1-----%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;dispatch_async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;----2-----%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//  都会等待在它前面插入队列的任务（1、2、）先执行完再执行后面的任务（3, 4）
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dispatch_barrier_async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;----barrier-----%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;dispatch_async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;----3-----%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;dispatch_async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;----4-----%@&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSThread&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;currentThread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;dispatch_semaphore-信号量&quot;&gt;&lt;strong&gt;dispatch_semaphore 信号量&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;防止多个线程同时操作一块资源, 控制并发。dispatch_semaphore_create 可以理解为创建的信号总量，dispatch_semaphore_signal是发送一个信号，会让信号总量加1，dispatch_semaphore_wait等待信号，让信号总量-1，当信号总量少于等于0的时候就会一直等待，否则就可以正常的执行，可以创建一个并发控制。YYCache里有用到。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-objectivec&quot;&gt;dispatch_semaphore_t semaphore = dispatch_semaphore_create(2);
+dispatch_queue_t quene = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+// 异步3个线程访问2个资源, 只分配2个资源
+    
+//任务1
+dispatch_async(quene, ^{
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    NSLog(@&quot;run task 1&quot;);
+    
+    dispatch_semaphore_signal(semaphore);
+    NSLog(@&quot;complete task 1&quot;);
+});
+//任务2
+dispatch_async(quene, ^{
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    NSLog(@&quot;run task 2&quot;);
+
+    dispatch_semaphore_signal(semaphore);
+    NSLog(@&quot;complete task 2&quot;);
+});
+//任务3
+dispatch_async(quene, ^{
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    NSLog(@&quot;run task 3&quot;);
+
+    dispatch_semaphore_signal(semaphore);
+    NSLog(@&quot;complete task 3&quot;);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当然, 底下 NSLock锁 一样可以实现以上操作。&lt;/p&gt;
+
+&lt;h3 id=&quot;nslock锁&quot;&gt;&lt;strong&gt;NSLock锁&lt;/strong&gt;&lt;/h3&gt;
+&lt;div class=&quot;language-objc highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;NSLock&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NSLock&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;alloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;dispatch_queue_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;quene&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dispatch_get_global_queue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DISPATCH_QUEUE_PRIORITY_DEFAULT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//任务1
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dispatch_async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quene&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;lock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;run task 1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;sleep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;unlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;complete task 1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//任务2
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dispatch_async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quene&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;lock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;run task 2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    
+    &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lock&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;unlock&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;NSLog&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;@&quot;complete task 2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+    
+&lt;span class=&quot;c1&quot;&gt;// 打印结果
+//    2017-08-10 16:29:44.792 GCDSemaphore[8153:2775304] run task 1
+//    2017-08-10 16:29:49.797 GCDSemaphore[8153:2775302] run task 2
+//    2017-08-10 16:29:49.797 GCDSemaphore[8153:2775304] complete task 1
+//    2017-08-10 16:29:49.797 GCDSemaphore[8153:2775302] complete task 2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;当任务1锁住之后，任务2会一直等待5s后等任务1将锁设置为unlock后，才会执行run task 2。如果不unlock, 那么任务2永远不会执行&lt;/p&gt;</content><author><name>korbin</name></author><category term="iOS" /><category term="iOS" /><summary type="html">dispatch_group_async</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/markdown.jpg" /></entry></feed>

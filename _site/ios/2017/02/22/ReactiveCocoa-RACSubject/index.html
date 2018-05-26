@@ -1,0 +1,1316 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="google678188973c4dedac.html" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="kangbing" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在 ReactiveCocoa 中除了不可变的信号 RACSignal，也有用于桥接非 RAC 代码到 ReactiveCocoa 世界的『可变』信号 RACSubject。">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="『可变』的热信号 RACSubject">
+<meta property="og:url" content="http://localhost:4000/ios/2017/02/22/ReactiveCocoa-RACSubject/">
+<meta property="og:site_name" content="kangbing">
+<meta property="og:description" content="在 ReactiveCocoa 中除了不可变的信号 RACSignal，也有用于桥接非 RAC 代码到 ReactiveCocoa 世界的『可变』信号 RACSubject。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8zt7oyyj20ge05mq3d">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8zt8lwlj20im067mxm">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztcpj4j20ns0abta7">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztihwuj20w40dywhl">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztc1o0j20ns0egjsp">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztcar3j20og0egabk">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztjju7j216g0dydjc">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztfkqoj216g07kdhs">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztaqpkj20qp0fvabn">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztkaitj216g0dy420">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="『可变』的热信号 RACSubject">
+<meta name="twitter:description" content="在 ReactiveCocoa 中除了不可变的信号 RACSignal，也有用于桥接非 RAC 代码到 ReactiveCocoa 世界的『可变』信号 RACSubject。">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8zt7oyyj20ge05mq3d">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>『可变』的热信号 RACSubject | kangbing</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-106565416-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">kangbing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Korbin's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/ios/2017/02/22/ReactiveCocoa-RACSubject/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="korbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kangbing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            『可变』的热信号 RACSubject
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-22T00:00:00+08:00">
+                2017-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/iOS" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在 ReactiveCocoa 中除了不可变的信号 <code class="highlighter-rouge">RACSignal</code>，也有用于桥接非 RAC 代码到 ReactiveCocoa 世界的『可变』信号 <code class="highlighter-rouge">RACSubject</code>。</p>
+
+<p><img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8zt7oyyj20ge05mq3d" alt="" /></p>
+
+<p><code class="highlighter-rouge">RACSubject</code> 到底是什么？根据其字面意思，可以将它理解为一个可以订阅的主题，我们在订阅主题之后，向主题发送新的消息时，<strong>所有</strong>的订阅者都会接收到最新的消息。</p>
+
+<p>但是这么解释确实有点晦涩，也不易于理解，ReactiveCocoa 团队对 <code class="highlighter-rouge">RACSubject</code> 的解释是，<code class="highlighter-rouge">RACSubject</code> 其实就是一个可以<strong>手动</strong>控制的信号（感觉这么解释更难理解了）。</p>
+
+<blockquote>
+  <p>A subject, represented by the RACSubject class, is a signal that can be manually controlled.</p>
+</blockquote>
+
+<h2 id="racsubject-简介">RACSubject 简介</h2>
+
+<p><code class="highlighter-rouge">RACSubject</code> 是 <code class="highlighter-rouge">RACSignal</code> 的子类，与 <code class="highlighter-rouge">RACSignal</code> 以及 <code class="highlighter-rouge">RACSequence</code> 有着众多的类簇不同，<code class="highlighter-rouge">RACSubject</code> 在整个工程中并没有多少子类；不过，在大多数情况下，我们也只会使用 <code class="highlighter-rouge">RACSubject</code> 自己或者 <code class="highlighter-rouge">RACReplaySubject</code>。</p>
+
+<p><img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8zt8lwlj20im067mxm" alt="" /></p>
+
+<p>相比于 <code class="highlighter-rouge">RACSignal</code> 丰富的头文件 ，<code class="highlighter-rouge">RACSubject</code> 对外的接口并没有提供太多的方法：</p>
+
+<pre><code class="language-objectivec">@interface RACSubject : RACSignal &lt;RACSubscriber&gt;
+
++ (instancetype)subject;
+
+@end
+</code></pre>
+
+<p>唯一提供的接口就是用于返回一个新实例的 <code class="highlighter-rouge">+subject</code> 方法；除此之外，在笔者看来它与 <code class="highlighter-rouge">RACSignal</code> 最大的不同就是：<code class="highlighter-rouge">RACSubject</code> 实现了 <code class="highlighter-rouge">RACSubscriber</code> 协议，也就是下面的这些方法：</p>
+
+<pre><code class="language-objectivec">@protocol RACSubscriber &lt;NSObject&gt;
+@required
+
+- (void)sendNext:(nullable id)value;
+- (void)sendError:(nullable NSError *)error;
+- (void)sendCompleted;
+- (void)didSubscribeWithDisposable:(RACCompoundDisposable *)disposable;
+
+@end
+</code></pre>
+
+<p>我们并不能在一个 <code class="highlighter-rouge">RACSignal</code> 对象上执行这些方法，只能在创建信号的 block 里面向遵循 <code class="highlighter-rouge">RACSubscriber</code> 协议的对象发送新的值或者错误，这也是 <code class="highlighter-rouge">RACSubject</code> 和父类最大的不同：在 <code class="highlighter-rouge">RACSubject</code> 实例初始化之后，也可以通过这个实例向所有的订阅者发送消息。</p>
+
+<h2 id="冷信号与热信号">冷信号与热信号</h2>
+
+<p>提到 <code class="highlighter-rouge">RACSubject</code> 就不得不提 ReactiveCocoa 中的另一对概念，冷信号和热信号。</p>
+
+<blockquote>
+  <p>其实解释这两者之间区别的文章已经很多了，我相信各位读者能找到很多的资料，在这里就简单介绍一下冷热信号的概念，如果想要了解更多的内容可以在 <a href="#references">References</a> 中找到更多的文章。</p>
+</blockquote>
+
+<p>对于冷热信号概念，我们借用 Rx 中的描述：</p>
+
+<p><img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztcpj4j20ns0abta7" alt="" /></p>
+
+<blockquote>
+  <p>Cold signal is sequences that are passive and start producing notifications on request (when subscribed to), and hot signal is sequences that are active and produce notifications regardless of subscriptions. —- <a href="http://www.introtorx.com/content/v1.0.10621.0/14_HotAndColdObservables.html">Hot and Cold observables</a></p>
+</blockquote>
+
+<p>冷信号是被动的，只会在被订阅时向订阅者发送通知；热信号是主动的，它会在任意时间发出通知，与订阅者的订阅时间无关。</p>
+
+<p>也就是说冷信号所有的订阅者会在订阅时收到完全相同的序列；而订阅热信号之后，只会收到在订阅之后发出的序列。</p>
+
+<blockquote>
+  <p>热信号的订阅者能否收到消息取决于订阅的时间。</p>
+</blockquote>
+
+<p>热信号在我们生活中有很多的例子，比如订阅杂志时并不会把之前所有的期刊都送到我们手中，只会接收到订阅之后的期刊；而对于冷信号的话，举一个不恰当的例子，每一年的高考考生在『订阅』高考之后，收到往年所有的试卷，并在高考之后会取消订阅。</p>
+
+<h2 id="热信号-racsubject">热信号 RACSubject</h2>
+
+<p>在 ReactiveCocoa 中，我们使用 <code class="highlighter-rouge">RACSignal</code> 来表示冷信号，也就是每一个订阅者在订阅信号时都会收到完整的序列；<code class="highlighter-rouge">RACSubject</code> 用于表示热信号，订阅者接收到多少值取决于它订阅的时间。</p>
+
+<p>前面的文章中已经对 <code class="highlighter-rouge">RACSignal</code> 冷信号有了很多的介绍，这里也就不会多说了；这一小节主要的内容是想通过一个例子，简单展示 <code class="highlighter-rouge">RACSubject</code> 的订阅者收到的内容与订阅时间的关系：</p>
+
+<pre><code class="language-objectivec">RACSubject *subject = [RACSubject subject];
+
+// Subscriber 1
+[subject subscribeNext:^(id  _Nullable x) {
+    NSLog(@"1st Sub: %@", x);
+}];
+[subject sendNext:@1];
+
+// Subscriber 2
+[subject subscribeNext:^(id  _Nullable x) {
+    NSLog(@"2nd Sub: %@", x);
+}];
+[subject sendNext:@2];
+
+// Subscriber 3
+[subject subscribeNext:^(id  _Nullable x) {
+    NSLog(@"3rd Sub: %@", x);
+}];
+[subject sendNext:@3];
+[subject sendCompleted];
+</code></pre>
+
+<p>这里以图的方式来展示整个订阅与订阅者接收消息的过程：</p>
+
+<p><img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztihwuj20w40dywhl" alt="" /></p>
+
+<p>从图中我们可以清楚的看到，几个订阅者根据<strong>订阅时间</strong>的不同收到了不同的数字序列，<code class="highlighter-rouge">RACSubject</code> 是<strong>时间相关</strong>的，它在发送消息时只会向已订阅的订阅者推送消息。</p>
+
+<h2 id="racsubject-的实现">RACSubject 的实现</h2>
+
+<p><code class="highlighter-rouge">RACSubject</code> 的实现并不复杂，它『可变』的特性都来源于持有的订阅者数组 <code class="highlighter-rouge">subscribers</code>，在每次执行 <code class="highlighter-rouge">subscribeNext:error:completed:</code> 一类便利方法时，都会将传入的 <code class="highlighter-rouge">id&lt;RACSubscriber&gt;</code> 对象加入数组：</p>
+
+<pre><code class="language-objectivec">- (RACDisposable *)subscribe:(id&lt;RACSubscriber&gt;)subscriber {
+	RACCompoundDisposable *disposable = [RACCompoundDisposable compoundDisposable];
+	subscriber = [[RACPassthroughSubscriber alloc] initWithSubscriber:subscriber signal:self disposable:disposable];
+
+	NSMutableArray *subscribers = self.subscribers;
+	@synchronized (subscribers) {
+		[subscribers addObject:subscriber];
+	}
+
+	[disposable addDisposable:[RACDisposable disposableWithBlock:^{
+		@synchronized (subscribers) {
+			NSUInteger index = [subscribers indexOfObjectWithOptions:NSEnumerationReverse passingTest:^ BOOL (id&lt;RACSubscriber&gt; obj, NSUInteger index, BOOL *stop) {
+				return obj == subscriber;
+			}];
+
+			if (index != NSNotFound) [subscribers removeObjectAtIndex:index];
+		}
+	}]];
+
+	return disposable;
+}
+</code></pre>
+
+<p>订阅的过程分为三个部分：</p>
+
+<ol>
+  <li>初始化一个 <code class="highlighter-rouge">RACPassthroughSubscriber</code> 实例；</li>
+  <li>将 <code class="highlighter-rouge">subscriber</code> 加入 <code class="highlighter-rouge">RACSubject</code> 持有的数组中；</li>
+  <li>创建一个 <code class="highlighter-rouge">RACDisposable</code> 对象，在当前 <code class="highlighter-rouge">subscriber</code> 销毁时，将自身从数组中移除。</li>
+</ol>
+
+<p><img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztc1o0j20ns0egjsp" alt="" /></p>
+
+<p><code class="highlighter-rouge">-subscribe:</code> 将所有遵循 <code class="highlighter-rouge">RACSubscriber</code> 协议的对象全部加入当前 <code class="highlighter-rouge">RACSubject</code> 持有的数组 <code class="highlighter-rouge">subscribers</code> 中。</p>
+
+<p>在上一节的例子中，我们能对 <code class="highlighter-rouge">RACSubject</code> 发送 <code class="highlighter-rouge">-sendNext:</code> 等消息也都取决于它实现了 <code class="highlighter-rouge">RACSubscriber</code> 协议：</p>
+
+<pre><code class="language-objectivec">- (void)sendNext:(id)value {
+	[self enumerateSubscribersUsingBlock:^(id&lt;RACSubscriber&gt; subscriber) {
+		[subscriber sendNext:value];
+	}];
+}
+
+- (void)sendError:(NSError *)error {
+	[self.disposable dispose];
+
+	[self enumerateSubscribersUsingBlock:^(id&lt;RACSubscriber&gt; subscriber) {
+		[subscriber sendError:error];
+	}];
+}
+
+- (void)sendCompleted {
+	[self.disposable dispose];
+
+	[self enumerateSubscribersUsingBlock:^(id&lt;RACSubscriber&gt; subscriber) {
+		[subscriber sendCompleted];
+	}];
+}
+</code></pre>
+
+<p><code class="highlighter-rouge">RACSubject</code> 会在自身接受到这些方法时，下发给持有的全部的 <code class="highlighter-rouge">subscribers</code>。</p>
+
+<p><img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztcar3j20og0egabk" alt="" /></p>
+
+<p>代码中的 <code class="highlighter-rouge">-enumerateSubscribersUsingBlock:</code> 只是一个使用 <code class="highlighter-rouge">for</code> 循环遍历 <code class="highlighter-rouge">subscribers</code> 的安全方法：</p>
+
+<pre><code class="language-objectivec">- (void)enumerateSubscribersUsingBlock:(void (^)(id&lt;RACSubscriber&gt; subscriber))block {
+	NSArray *subscribers;
+	@synchronized (self.subscribers) {
+		subscribers = [self.subscribers copy];
+	}
+
+	for (id&lt;RACSubscriber&gt; subscriber in subscribers) {
+		block(subscriber);
+	}
+}
+</code></pre>
+
+<p><code class="highlighter-rouge">RACSubject</code> 就是围绕一个 <code class="highlighter-rouge">NSMutableArray</code> 数组实现的，实现还是非常简单的，只是在需要访问 <code class="highlighter-rouge">subscribers</code> 的方法中使用 <code class="highlighter-rouge">@synchronized</code> 避免线程竞争。</p>
+
+<pre><code class="language-objectivec">@interface RACSubject ()
+
+@property (nonatomic, strong, readonly) NSMutableArray *subscribers;
+
+@end
+</code></pre>
+
+<p><code class="highlighter-rouge">RACSubject</code> 提供的初始化类方法 <code class="highlighter-rouge">+subject</code> 也只是初始化了几个成员变量：</p>
+
+<pre><code class="language-objectivec">+ (instancetype)subject {
+	return [[self alloc] init];
+}
+
+- (instancetype)init {
+	self = [super init];
+	if (self == nil) return nil;
+
+	_disposable = [RACCompoundDisposable compoundDisposable];
+	_subscribers = [[NSMutableArray alloc] initWithCapacity:1];
+
+	return self;
+}
+</code></pre>
+
+<p>至此，对于 <code class="highlighter-rouge">RACSubject</code> 的分析就结束了，接下来会分析更多的子类。</p>
+
+<h2 id="racbehaviorsubject-与-racreplaysubject">RACBehaviorSubject 与 RACReplaySubject</h2>
+
+<p>这一节会介绍 <code class="highlighter-rouge">RACSubject</code> 的两个子类 <code class="highlighter-rouge">RACBehaviorSubject</code> 和 <code class="highlighter-rouge">RACReplaySubject</code>，前者在订阅时会向订阅者发送最新的消息，后者在订阅之后<strong>可以</strong>重新发送之前的<strong>所有</strong>消息序列。</p>
+
+<h3 id="racbehaviorsubject">RACBehaviorSubject</h3>
+
+<p>先来介绍两者中实现较简单的 <code class="highlighter-rouge">RACBehaviorSubject</code>，它在内部会保存一个 <code class="highlighter-rouge">currentValue</code> 对象，也就是最后一次发送的消息：</p>
+
+<pre><code class="language-objectivec">@interface RACBehaviorSubject ()
+
+@property (nonatomic, strong) id currentValue;
+
+@end
+</code></pre>
+
+<p>在每次执行 <code class="highlighter-rouge">-sendNext:</code> 时，都会对 <code class="highlighter-rouge">RACBehaviorSubject</code> 中保存的 <code class="highlighter-rouge">currentValue</code> 进行更新，并使用父类的 <code class="highlighter-rouge">-sendNext:</code> 方法，向所有的订阅者发送最新的消息：</p>
+
+<pre><code class="language-objectivec">- (void)sendNext:(id)value {
+	@synchronized (self) {
+		self.currentValue = value;
+		[super sendNext:value];
+	}
+}
+</code></pre>
+
+<p><code class="highlighter-rouge">RACBehaviorSubject</code> 最重要的特性就是在订阅时，向最新的订阅者发送之前的消息，这是通过覆写 <code class="highlighter-rouge">-subscribe:</code> 方法实现的。</p>
+
+<p>在调用子类的 <code class="highlighter-rouge">-subscribe:</code> 方法之后，会在 <code class="highlighter-rouge">subscriber</code> 对象上执行 <code class="highlighter-rouge">-sendNext:</code> 方法：</p>
+
+<pre><code class="language-objectivec">- (RACDisposable *)subscribe:(id&lt;RACSubscriber&gt;)subscriber {
+	RACDisposable *subscriptionDisposable = [super subscribe:subscriber];
+
+	RACDisposable *schedulingDisposable = [RACScheduler.subscriptionScheduler schedule:^{
+		@synchronized (self) {
+			[subscriber sendNext:self.currentValue];
+		}
+	}];
+
+	return [RACDisposable disposableWithBlock:^{
+		[subscriptionDisposable dispose];
+		[schedulingDisposable dispose];
+	}];
+}
+</code></pre>
+
+<p>接下来，通过一个简单的例子来演示 <code class="highlighter-rouge">RACBehaviorSubject</code> 到底是如何工作的：</p>
+
+<pre><code class="language-objectivec">RACBehaviorSubject *subject = [RACBehaviorSubject subject];
+
+[subject subscribeNext:^(id  _Nullable x) {
+    NSLog(@"1st Sub: %@", x);
+}];
+[subject sendNext:@1];
+
+[subject subscribeNext:^(id  _Nullable x) {
+    NSLog(@"2nd Sub: %@", x);
+}];
+[subject sendNext:@2];
+
+[subject subscribeNext:^(id  _Nullable x) {
+    NSLog(@"3rd Sub: %@", x);
+}];
+[subject sendNext:@3];
+[subject sendCompleted];
+</code></pre>
+
+<p>上面的代码其实与 <code class="highlighter-rouge">RACSubject</code> 一节中的代码差不多，只将 <code class="highlighter-rouge">RACSubject</code> 转换成了 <code class="highlighter-rouge">RACBehaviorSubject</code> 对象。</p>
+
+<p><img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztjju7j216g0dydjc" alt="" /></p>
+
+<p>在每次订阅者订阅 <code class="highlighter-rouge">RACBehaviorSubject</code> 之后，都会向该订阅者发送<strong>最新</strong>的消息，这也就是 <code class="highlighter-rouge">RACBehaviorSubject</code> 最重要的行为。</p>
+
+<p><code class="highlighter-rouge">RACBehaviorSubject</code> 有一个用于创建包含默认值的类方法 <code class="highlighter-rouge">+behaviorSubjectWithDefaultValue:</code>，如果将上面的第一行代码改成：</p>
+
+<pre><code class="language-objectivec">RACBehaviorSubject *subject = [RACBehaviorSubject behaviorSubjectWithDefaultValue:@0];
+</code></pre>
+
+<p>那么在第一个订阅者刚订阅 <code class="highlighter-rouge">RACBehaviorSubject</code> 时就会收到 <code class="highlighter-rouge">@0</code> 对象。</p>
+
+<p><img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztfkqoj216g07kdhs" alt="" /></p>
+
+<h3 id="racreplaysubject">RACReplaySubject</h3>
+
+<p><code class="highlighter-rouge">RACReplaySubject</code> 相当于一个自带 <code class="highlighter-rouge">buffer</code> 的 <code class="highlighter-rouge">RACBehaviorSubject</code>，它可以在每次有新的订阅者订阅之后发送之前的全部消息。</p>
+
+<pre><code class="language-objectivec">@interface RACReplaySubject ()
+
+@property (nonatomic, assign, readonly) NSUInteger capacity;
+@property (nonatomic, strong, readonly) NSMutableArray *valuesReceived;
+
+@end
+</code></pre>
+
+<p>实现的方式是通过持有一个 <code class="highlighter-rouge">valuesReceived</code> 的数组和能够存储的对象的上限 <code class="highlighter-rouge">capacity</code>，默认值为：</p>
+
+<pre><code class="language-objectivec">const NSUInteger RACReplaySubjectUnlimitedCapacity = NSUIntegerMax;
+</code></pre>
+
+<p>当然你可以用 <code class="highlighter-rouge">+replaySubjectWithCapacity:</code> 初始化一个其它大小的 <code class="highlighter-rouge">RACReplaySubject</code> 对象：</p>
+
+<pre><code class="language-objectivec">+ (instancetype)replaySubjectWithCapacity:(NSUInteger)capacity {
+	return [(RACReplaySubject *)[self alloc] initWithCapacity:capacity];
+}
+
+- (instancetype)initWithCapacity:(NSUInteger)capacity {
+	self = [super init];
+
+	_capacity = capacity;
+	_valuesReceived = (capacity == RACReplaySubjectUnlimitedCapacity ? [NSMutableArray array] : [NSMutableArray arrayWithCapacity:capacity]);
+
+	return self;
+}
+</code></pre>
+
+<p>在每次调用 <code class="highlighter-rouge">-sendNext:</code> 方法发送消息时，都会将其加入 <code class="highlighter-rouge">valuesReceived</code> 数组中，并踢出之前的元素：</p>
+
+<pre><code class="language-objectivec">- (void)sendNext:(id)value {
+	@synchronized (self) {
+		[self.valuesReceived addObject:value ?: RACTupleNil.tupleNil];
+		[super sendNext:value];
+
+		if (self.capacity != RACReplaySubjectUnlimitedCapacity &amp;&amp; self.valuesReceived.count &gt; self.capacity) {
+			[self.valuesReceived removeObjectsInRange:NSMakeRange(0, self.valuesReceived.count - self.capacity)];
+		}
+	}
+}
+</code></pre>
+
+<p>需要注意的有两点，一是对 <code class="highlighter-rouge">valuesReceived</code> 的数组的操作必须使用 <code class="highlighter-rouge">@synchronized</code> 加锁；第二，如果 <code class="highlighter-rouge">value</code> 为空的话，也需要将其转换成 <code class="highlighter-rouge">RACTupleNil.tupleNil</code> 对象进行保存。</p>
+
+<p><img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztaqpkj20qp0fvabn" alt="" /></p>
+
+<p><code class="highlighter-rouge">-sendError:</code> 和 <code class="highlighter-rouge">-sendCompleted</code> 方法都会标记对应 <code class="highlighter-rouge">flag</code>，即 <code class="highlighter-rouge">hasCompleted</code> 和 <code class="highlighter-rouge">hasError</code>，这里就不介绍了；同样的，<code class="highlighter-rouge">RACReplaySubject</code> 也覆写了 <code class="highlighter-rouge">-subscribe:</code> 方法，在每次有订阅者订阅时重新发送所有的序列：</p>
+
+<pre><code class="language-objectivec">- (RACDisposable *)subscribe:(id&lt;RACSubscriber&gt;)subscriber {
+	RACCompoundDisposable *compoundDisposable = [RACCompoundDisposable compoundDisposable];
+
+	RACDisposable *schedulingDisposable = [RACScheduler.subscriptionScheduler schedule:^{
+		@synchronized (self) {
+			for (id value in self.valuesReceived) {
+				if (compoundDisposable.disposed) return;
+
+				[subscriber sendNext:(value == RACTupleNil.tupleNil ? nil : value)];
+			}
+
+			if (compoundDisposable.disposed) return;
+
+			if (self.hasCompleted) {
+				[subscriber sendCompleted];
+			} else if (self.hasError) {
+				[subscriber sendError:self.error];
+			} else {
+				RACDisposable *subscriptionDisposable = [super subscribe:subscriber];
+				[compoundDisposable addDisposable:subscriptionDisposable];
+			}
+		}
+	}];
+
+	[compoundDisposable addDisposable:schedulingDisposable];
+
+	return compoundDisposable;
+}
+</code></pre>
+
+<p>我们仍然使用上一节中的例子来展示 <code class="highlighter-rouge">RACReplaySubject</code> 是如何工作的，只修改第一行代码：</p>
+
+<pre><code class="language-objectivec">RACReplaySubject *subject = [RACReplaySubject subject];
+
+[subject subscribeNext:^(id  _Nullable x) {
+    NSLog(@"1st Subscriber: %@", x);
+}];
+[subject sendNext:@1];
+
+[subject subscribeNext:^(id  _Nullable x) {
+    NSLog(@"2nd Subscriber: %@", x);
+}];
+[subject sendNext:@2];
+
+[subject subscribeNext:^(id  _Nullable x) {
+    NSLog(@"3rd Subscriber: %@", x);
+}];
+[subject sendNext:@3];
+[subject sendCompleted];
+</code></pre>
+
+<p>运行这段代码之后，会得到如下图的结果：</p>
+
+<p><img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fcz8ztkaitj216g0dy420" alt="" /></p>
+
+<p>所有订阅 <code class="highlighter-rouge">RACReplaySubject</code> 的对象（默认行为）都能获得完整的序列，而这个特性在与 <code class="highlighter-rouge">RACMulticastConnection</code> 一起使用也有着巨大威力，我们会在之后的文章中介绍。</p>
+
+<h2 id="总结">总结</h2>
+
+<p><code class="highlighter-rouge">RACSubject</code> 在 <code class="highlighter-rouge">RACSignal</code> 对象之上进行了简单的修改，将原有的冷信号改造成了热信号，将不可变变成了可变。</p>
+
+<p>虽然 <code class="highlighter-rouge">RACSubject</code> 的实现并不复杂，只是存储了一个遵循 <code class="highlighter-rouge">RACSubscriber</code> 协议的对象列表以及所有的消息，但是在解决实际问题时却能够很好地解决很多与网络操作相关的问题。</p>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="http://williamzang.com/blog/2015/08/18/talk-about-reactivecocoas-cold-signal-and-hot-signal/">细说 ReactiveCocoa 的冷信号与热信号</a></li>
+  <li><a href="http://www.introtorx.com/content/v1.0.10621.0/14_HotAndColdObservables.html">Hot and Cold observables</a></li>
+</ul>
+
+<blockquote>
+  <p>Github Repo：<a href="https://github.com/draveness/iOS-Source-Code-Analyze">iOS-Source-Code-Analyze</a></p>
+
+  <p>Follow: <a href="https://github.com/Draveness">Draveness · GitHub</a></p>
+
+  <p>Source: http://draveness.me/racsubject</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/iOS" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ios/2017/02/23/Runtime%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" rel="next" title="Runtime的简单使用">
+                <i class="fa fa-chevron-left"></i> Runtime的简单使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/ios/2017/02/17/%E4%BB%8E%E6%BA%90%E4%BB%A3%E7%A0%81%E7%9C%8B-ObjC-%E4%B8%AD%E6%B6%88%E6%81%AF%E7%9A%84%E5%8F%91%E9%80%81/" rel="prev" title="从源代码看 ObjC 中消息的发送">
+                从源代码看 ObjC 中消息的发送 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.png"
+               alt="korbin" />
+          <p class="site-author-name" itemprop="name">korbin</p>
+           
+              <p class="site-description motion-element" itemprop="description">每天进步一小步!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/kangbingbing" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/kangbingbing" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#racsubject-简介"> <span class="nav-number">1</span> <span class="nav-text">RACSubject 简介</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#冷信号与热信号"> <span class="nav-number">2</span> <span class="nav-text">冷信号与热信号</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#热信号-racsubject"> <span class="nav-number">3</span> <span class="nav-text">热信号 RACSubject</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#racsubject-的实现"> <span class="nav-number">4</span> <span class="nav-text">RACSubject 的实现</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#racbehaviorsubject-与-racreplaysubject"> <span class="nav-number">5</span> <span class="nav-text">RACBehaviorSubject 与 RACReplaySubject</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-3"> <a class="nav-link" href="#racbehaviorsubject"> <span class="nav-number">5.1</span> <span class="nav-text">RACBehaviorSubject</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-3"> <a class="nav-link" href="#racreplaysubject"> <span class="nav-number">5.2</span> <span class="nav-text">RACReplaySubject</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#总结"> <span class="nav-number">6</span> <span class="nav-text">总结</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#references"> <span class="nav-number">7</span> <span class="nav-text">References</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child">
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">korbin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      您是本站第
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访问者
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

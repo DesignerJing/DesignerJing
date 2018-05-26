@@ -1,0 +1,1206 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="google678188973c4dedac.html" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="kangbing" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="推流:LFLiveKit 播放:ijkplayer 服务器:nginx+rtmp">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一步一步带你实现 iOS 直播 Demo">
+<meta property="og:url" content="http://localhost:4000/ios/2017/03/28/iOS%E7%9B%B4%E6%92%AD-Demo/">
+<meta property="og:site_name" content="kangbing">
+<meta property="og:description" content="推流:LFLiveKit 播放:ijkplayer 服务器:nginx+rtmp">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2pmi0vwwj20cr0lh130.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/9e1008a3ly1fe5tof66oqg20ab0ifkjn.gif">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2m98a6wxj20k705d0tc.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2mduk40gj20kd06l0u8.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2mksz50wj20kd0con04.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2mmwz5hpj20ka0c4dhh.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2mygt301j20kc0c30vs.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2mti4jvcj20h50aowgq.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2mw9a5izj20qx0a377e.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2n1j36sbj20pz09lta4.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2n4q6u5lj20qj0ajjsu.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2n4q6u5lj20qj0ajjsu.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2nv082d5j20kh09r40v.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2o0q47drj20kx05uq4k.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2nzhpzvgj20h60ar75c.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2o44vrvgj20ht06ygmc.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2oj9ikvij20cr0lh137.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3ifi6j50j20e008fjsn.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3ig29sv1j20kg0dj0uw.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3igjmwvkj20ba0btaaq.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3igvrsiij20od0il0ut.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3jcowfz7j20fp069dhl.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3jhgu5w0j20kg0763ys.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3kk4t3o1j20bc0k4h0a.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3kmv2n5kj20ae0ik4bl.jpg">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3kq1syitj20qv0ck412.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一步一步带你实现 iOS 直播 Demo">
+<meta name="twitter:description" content="推流:LFLiveKit 播放:ijkplayer 服务器:nginx+rtmp">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2pmi0vwwj20cr0lh130.jpg">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>一步一步带你实现 iOS 直播 Demo | kangbing</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-106565416-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">kangbing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Korbin's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/ios/2017/03/28/iOS%E7%9B%B4%E6%92%AD-Demo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="korbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kangbing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            一步一步带你实现 iOS 直播 Demo
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-28T00:00:00+08:00">
+                2017-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/iOS" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+  <p>推流:LFLiveKit		播放:ijkplayer	服务器:nginx+rtmp</p>
+</blockquote>
+
+<p>首先开发一款直播 APP 首先是播放, 前提是服务器只要提供拉流的 url, 下面就主要是通过ijkplayer, 来实现播放;
+直播源, 也就是 url 是从映客抓的, 直接上代码</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>- (void)loadData{
+
+AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/plain", @"text/html", nil];
+[manager GET:@"http://116.211.167.106/api/live/aggregation?uid=23455&amp;interest=1" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    
+    if ([responseObject[@"error_msg"] isEqualToString:@"操作成功"]) {
+        self.dataArray = [LiveModel mj_objectArrayWithKeyValuesArray:responseObject[@"lives"]];
+        [self.tableView reloadData];
+    }
+} failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+    
+    NSLog(@"%@",error);
+}];
+}
+</code></pre>
+</div>
+
+<p>有了数据源, 实现 tableView 代理方法即可, 如下图:
+<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2pmi0vwwj20cr0lh130.jpg" alt="" /></p>
+
+<p><strong>Gif图</strong></p>
+
+<p><img src="http://ww1.sinaimg.cn/large/9e1008a3ly1fe5tof66oqg20ab0ifkjn.gif" alt="示例 GIF图" /></p>
+
+<p>接下来就是比较重要的一步, 实现播放, 去下载<a href="https://github.com/Bilibili/ijkplayer">ijkplayer</a>
+<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2m98a6wxj20k705d0tc.jpg" alt="" /></p>
+
+<p>下载完成之后, cd到当前文件夹下, 执行命令<code class="highlighter-rouge">./init-ios.sh</code>然后会等很久,等下载完成之后
+<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2mduk40gj20kd06l0u8.jpg" alt="" />
+<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2mksz50wj20kd0con04.jpg" alt="" /></p>
+
+<p>我们cd 到 ios 文件夹执行命令<code class="highlighter-rouge">./compile-ffmpeg.sh clean</code>
+<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2mmwz5hpj20ka0c4dhh.jpg" alt="" /></p>
+
+<p>再执行<code class="highlighter-rouge">./compile-ffmpeg.sh all</code>
+编译时间较长。
+<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2mygt301j20kc0c30vs.jpg" alt="" /></p>
+
+<p>完成之后打包IJKMediaFramework.framework框架</p>
+
+<ol>
+  <li>首先打开工程IJKMediaPlayer.xcodeproj, 位置如下图: <img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2mti4jvcj20h50aowgq.jpg" alt="" /></li>
+  <li>打开之后,去修改 scheme -&gt; run -&gt; release<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2mw9a5izj20qx0a377e.jpg" alt="" /></li>
+  <li>模拟器下 command+b 编译下<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2n1j36sbj20pz09lta4.jpg" alt="" /></li>
+  <li>真机下 command+b 编译 <img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2n4q6u5lj20qj0ajjsu.jpg" alt="" /></li>
+  <li>然后展开 Product 文件夹 如图 Show In Finder<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2n4q6u5lj20qj0ajjsu.jpg" alt="" /></li>
+  <li>lipo -create “真机路径” “模拟器路径” -output “合并后的文件路径”注意合并后问价的命名,如下图<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2nv082d5j20kh09r40v.jpg" alt="" /></li>
+  <li>将Release-iphoneos里面的IJKMediaFramework删掉;<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2o0q47drj20kx05uq4k.jpg" alt="" /></li>
+  <li>把刚生成的IJKMediaFramework拖到Release-iphoneos/IJKMediaFramework.framework/文件夹下<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2nzhpzvgj20h60ar75c.jpg" alt="" /></li>
+  <li>这样IJKMediaFramework.framework就是我们需要的了如图<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2o44vrvgj20ht06ygmc.jpg" alt="" /></li>
+  <li>将其添加到项目中并添加相关的库</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Build Phases -&gt; Link Binary with Libraries -&gt; Add:
+IJKMediaFramework.framework
+
+AudioToolbox.framework
+
+AVFoundation.framework
+
+CoreGraphics.framework
+
+CoreMedia.framework
+
+CoreVideo.framework
+
+libbz2.tbd
+
+libz.tbd
+
+MediaPlayer.framework
+
+MobileCoreServices.framework
+
+OpenGLES.framework
+
+QuartzCore.framework
+
+UIKit.framework
+
+VideoToolbox.framework 
+</code></pre>
+</div>
+
+<h3 id="播放代码">播放代码</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>[[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(didChangeNotification:) name:IJKMPMoviePlayerPlaybackStateDidChangeNotification object:nil];
+
+[self loadingImgView];
+
+IJKFFOptions *options = [IJKFFOptions optionsByDefault];
+// 硬解
+//    [options setPlayerOptionIntValue:1  forKey:@"videotoolbox"];
+//    // 帧速率(fps) （可以改，确认非标准桢率会导致音画不同步，所以只能设定为15或者29.97）
+//    [options setPlayerOptionIntValue:29.97 forKey:@"r"];
+//    // -vol——设置音量大小，256为标准音量。（要设置成两倍音量时则输入512，依此类推
+//    [options setPlayerOptionIntValue:512 forKey:@"vol"];
+// 去掉缓冲区
+//    [options setPlayerOptionIntValue:0 forKey:@"packet-buffering"];
+
+NSURL *url = [NSURL URLWithString:self.stream_addr];
+IJKFFMoviePlayerController *playerVc = [[IJKFFMoviePlayerController alloc] initWithContentURL:url withOptions:options];
+[playerVc prepareToPlay];
+_playerVc = playerVc;
+playerVc.view.frame = [UIScreen mainScreen].bounds;
+[self.view addSubview:playerVc.view];
+</code></pre>
+</div>
+
+<p>效果如图:
+<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe2oj9ikvij20cr0lh137.jpg" alt="" /></p>
+
+<h3 id="ijkmediaframework已上传百度云">IJKMediaFramework已上传百度云</h3>
+<p>IJKMediaFramework.framework <a href="https://pan.baidu.com/s/1gf1RJUz">下载</a>  密码: uvha</p>
+
+<h3 id="推流篇">推流篇</h3>
+
+<p>播放已完成, 那下面需要直播了, 直播首先在本地nginx搭建rtmp协议流媒体服务器;</p>
+
+<ol>
+  <li>安装Homebrew, 也就是在 OSX 上软件包管理工具;</li>
+  <li>如果没有安装输入以下命令安装ruby -e “$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)”, 利用 man brew 可以查询本机是否安装;</li>
+  <li>安装完成之后, 那就利用 Homebrew 安装 nginx, 终端输入: brew tap homebrew/nginx;</li>
+  <li>下载nginx-rtmp-module模块, 执行命令brew install nginx-full –with-rtmp-module;</li>
+  <li>输入nginx, 打开http://localhost:8080, 如下图所示, 说明环境搭建好了;<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3ifi6j50j20e008fjsn.jpg" alt="" /></li>
+  <li>修改配置文件, 先去查看 nginx 配置文件, 终端输入brew info nginx-full;</li>
+  <li>去搜索 Command+F 查找nginx.conf, 如图:<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3ig29sv1j20kg0dj0uw.jpg" alt="" /><img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3igjmwvkj20ba0btaaq.jpg" alt="" /></li>
+  <li>把路径复制下, finder前往文件夹, 粘贴路径找到配置文件, 用编辑器打开, 如图:<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3igvrsiij20od0il0ut.jpg" alt="" /></li>
+  <li>在上图位置添加如下代码:</li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>rtmp {
+    server {
+        listen 1935;
+        application rtmplive {
+            live on;
+            record off;
+        }
+    }
+}
+</code></pre>
+</div>
+<p>rtmp:协议名, server:服务器配置, listen:监听的端口号, application应用名称, live:开启实时;
+<strong>配置完成之后记得刷新, 也就是重新加载配置文件 终端输入: nginx -s reload</strong></p>
+
+<p>以上推流就准备就绪, 但是由于是本地测试, 不在外网, 那想要查看自己直播, 需要一个播放器了; 去下载 <a href="http://sw.bos.baidu.com/sw-search-sp/software/2fd5dcf2d9cbb/vlc_mac_2.2.4.dmg">VLC</a><img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3jcowfz7j20fp069dhl.jpg" alt="" /></p>
+
+<h2 id="音视频采集">音视频采集</h2>
+
+<p>下面就要去项目进行客户端采集音视频;<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3jhgu5w0j20kg0763ys.jpg" alt="" />
+利用 pod 管理, Podfile 里 添加<code class="highlighter-rouge">pod 'LFLiveKit'</code> 即可, 当然你也可以不用 pod 直接添加也行; 并添加相关依赖库之后, 看代码实现:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>- (LFLiveSession *)session {
+if (!_session) {
+
+    /***   默认分辨率368 ＊ 640  音频：44.1 iphone6以上48  双声道  方向竖屏 ***/
+    LFLiveVideoConfiguration *videoConfiguration = [LFLiveVideoConfiguration new];
+    videoConfiguration.videoSize = CGSizeMake(360, 640);
+    videoConfiguration.videoBitRate = 800*1024;
+    videoConfiguration.videoMaxBitRate = 1000*1024;
+    videoConfiguration.videoMinBitRate = 500*1024;
+    videoConfiguration.videoFrameRate = 24;
+    videoConfiguration.videoMaxKeyframeInterval = 48;
+    videoConfiguration.outputImageOrientation = UIInterfaceOrientationPortrait;
+    videoConfiguration.autorotate = NO;
+    videoConfiguration.sessionPreset = LFCaptureSessionPreset720x1280;
+    _session = [[LFLiveSession alloc] initWithAudioConfiguration:[LFLiveAudioConfiguration defaultConfiguration] videoConfiguration:videoConfiguration captureType:LFLiveCaptureDefaultMask];
+
+    _session.delegate = self;
+    _session.showDebugInfo = NO;
+    _session.preView = self;
+    
+    
+}
+return _session;
+}		
+</code></pre>
+</div>
+
+<p><strong>开启音视频</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>- (void)requestAccessForVideo {
+__weak typeof(self) _self = self;
+AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+switch (status) {
+case AVAuthorizationStatusNotDetermined: {
+    // 许可对话没有出现，发起授权许可
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+            if (granted) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [_self.session setRunning:YES];
+                });
+            }
+        }];
+    break;
+}
+case AVAuthorizationStatusAuthorized: {
+    // 已经开启授权，可继续
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_self.session setRunning:YES];
+    });
+    break;
+}
+case AVAuthorizationStatusDenied:
+case AVAuthorizationStatusRestricted:
+    // 用户明确地拒绝授权，或者相机设备无法访问
+
+    break;
+default:
+    break;
+	}
+}
+
+- (void)requestAccessForAudio {
+AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+switch (status) {
+case AVAuthorizationStatusNotDetermined: {
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+        }];
+    break;
+}
+case AVAuthorizationStatusAuthorized: {
+    break;
+}
+case AVAuthorizationStatusDenied:
+case AVAuthorizationStatusRestricted:
+    break;
+default:
+    break;
+   }
+}
+</code></pre>
+</div>
+
+<p><strong>相关状态代理方法</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>- (void)liveSession:(nullable LFLiveSession *)session liveStateDidChange:(LFLiveState)state {
+NSLog(@"liveStateDidChange: %ld", state);
+switch (state) {
+case LFLiveReady:
+    _stateLabel.text = @"准备中";
+    break;
+case LFLivePending:
+    _stateLabel.text = @"连接中";
+    break;
+case LFLiveStart:
+    _stateLabel.text = @"已连接";
+    break;
+case LFLiveError:
+    _stateLabel.text = @"连接错误";
+    break;
+case LFLiveStop:
+    _stateLabel.text = @"直播已结束";
+    break;
+default:
+    break;
+	}
+}
+
+
+- (void)liveSession:(nullable LFLiveSession *)session debugInfo:(nullable LFLiveDebug *)debugInfo {
+NSLog(@"debugInfo uploadSpeed: %@", formatedSpeed(debugInfo.currentBandwidth, debugInfo.elapsedMilli));
+}
+
+
+- (void)liveSession:(nullable LFLiveSession *)session errorCode:(LFLiveSocketErrorCode)errorCode {
+NSLog(@"errorCode: %ld", errorCode);
+}
+</code></pre>
+</div>
+
+<p><strong>开始直播的操作</strong></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>LFLiveStreamInfo *stream = [LFLiveStreamInfo new];
+//  推流地址
+stream.url = @"rtmp://192.168.1.115:1935/rtmplive/room";
+[self.session startLive:stream];
+</code></pre>
+</div>
+
+<p>url 里192.168.1.115 是电脑本机的地址, 1935 就是我们上面 Nginx 的第9步, listen就是监听的端口号,  填写正确即可开始直播; 
+打开本机服务器, 终端输入 nginx  这是进入我要直播界面是未连接的状态, 如图:
+<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3kk4t3o1j20bc0k4h0a.jpg" alt="" /></p>
+
+<p>点击开始直播, 连接成功, 状态如图:
+<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3kmv2n5kj20ae0ik4bl.jpg" alt="" /></p>
+
+<p>接下来就可以打开刚刚下载的 VLC 查看了; url输入我们本地地址
+<img src="https://ws1.sinaimg.cn/large/9e1008a3ly1fe3kq1syitj20qv0ck412.jpg" alt="" /></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/iOS" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ios/2017/05/23/AppStore-Review/" rel="next" title="AppStore Review">
+                <i class="fa fa-chevron-left"></i> AppStore Review
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/ios/2017/03/22/Runtime/" rel="prev" title="Objective-C Runtime">
+                Objective-C Runtime <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.png"
+               alt="korbin" />
+          <p class="site-author-name" itemprop="name">korbin</p>
+           
+              <p class="site-description motion-element" itemprop="description">每天进步一小步!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/kangbingbing" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/kangbingbing" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#音视频采集"> <span class="nav-number">1</span> <span class="nav-text">音视频采集</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child">
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">korbin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      您是本站第
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访问者
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+

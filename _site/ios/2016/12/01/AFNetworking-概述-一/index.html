@@ -1,0 +1,1043 @@
+
+<!doctype html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="google678188973c4dedac.html" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/assets/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/assets/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="kangbing" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="文章来自AFNetworking 概述（一）">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AFNetworking 概述（一）">
+<meta property="og:url" content="http://localhost:4000/ios/2016/12/01/AFNetworking-%E6%A6%82%E8%BF%B0-%E4%B8%80/">
+<meta property="og:site_name" content="kangbing">
+<meta property="og:description" content="文章来自AFNetworking 概述（一）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="../images/afnetworking-arch.png">
+<meta property="og:image" content="../images/afnetworking-plist.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AFNetworking 概述（一）">
+<meta name="twitter:description" content="文章来自AFNetworking 概述（一）">
+<meta name="twitter:image" content="../images/afnetworking-arch.png">
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://localhost:4000/"/>
+
+
+
+
+
+  <title>AFNetworking 概述（一） | kangbing</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-106565416-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">kangbing</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Korbin's Blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+<div id="posts" class="posts-expand">
+  
+  
+
+  
+
+  
+  
+  
+
+  <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/ios/2016/12/01/AFNetworking-%E6%A6%82%E8%BF%B0-%E4%B8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="korbin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kangbing">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+          
+          
+            AFNetworking 概述（一）
+          
+        </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-01T00:00:00+08:00">
+                2016-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/#/iOS" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+            
+                <div class="post-description">
+                    
+                </div>
+            
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+  <p>文章来自<a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/AFNetworking/AFNetworking%20概述（一）.md">AFNetworking 概述（一）</a></p>
+</blockquote>
+
+<blockquote>
+  <p>作者Blog: <a href="http://draveness.me">Draveness</a></p>
+</blockquote>
+
+<p>在这一系列的文章中，我会对 AFNetworking 的源代码进行分析，深入了解一下它是如何构建的，如何在日常中完成发送 HTTP 请求、构建网络层这一任务。</p>
+
+<p><a href="https://github.com/AFNetworking/AFNetworking">AFNetworking</a> 是如今 iOS 开发中不可缺少的组件之一。它的 github 配置上是如下介绍的：</p>
+
+<blockquote>
+  <p>Perhaps the most important feature of all, however, is the amazing community of developers who use and contribute to AFNetworking every day. AFNetworking powers some of the most popular and critically-acclaimed apps on the iPhone, iPad, and Mac.</p>
+</blockquote>
+
+<p>可以说<strong>使用 AFNetworking 的工程师构成的社区</strong>才使得它变得非常重要。</p>
+
+<h2 id="概述">概述</h2>
+
+<p>我们今天是来深入研究一下这个与我们日常开发密切相关的框架是如何实现的。</p>
+
+<p>这是我对 AFNetworking 整个架构的理解，随后一系列的文章也会逐步分析这些模块。</p>
+
+<p><img src="../images/afnetworking-arch.png" alt="afnetworking-arch" /></p>
+
+<p>在这篇文章中，我们有两个问题需要了解：</p>
+
+<ol>
+  <li>如何使用 NSURLSession 发出 HTTP 请求</li>
+  <li>如何使用 AFNetworking 发出 HTTP 请求</li>
+</ol>
+
+<h2 id="nsurlsession">NSURLSession</h2>
+
+<p><code class="highlighter-rouge">NSURLSession</code> 以及与它相关的类为我们提供了下载内容的 API，这个 API 提供了一系列的代理方法来支持身份认证，并且支持后台下载。</p>
+
+<p>使用 <code class="highlighter-rouge">NSURLSession</code> 来进行 HTTP 请求并且获得数据总共有五个步骤：</p>
+
+<ol>
+  <li>实例化一个 <code class="highlighter-rouge">NSURLRequest/NSMutableURLRequest</code>，设置 URL</li>
+  <li>通过 <code class="highlighter-rouge">- sharedSession</code> 方法获取 <code class="highlighter-rouge">NSURLSession</code></li>
+  <li>在 session 上调用 <code class="highlighter-rouge">- dataTaskWithRequest:completionHandler:</code> 方法返回一个 <code class="highlighter-rouge">NSURLSessionDataTask</code></li>
+  <li>向 data task 发送消息 <code class="highlighter-rouge">- resume</code>，开始执行这个任务</li>
+  <li>在 completionHandler 中将数据编码，返回字符串</li>
+</ol>
+
+<pre><code class="language-objectivec">NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:@"https://github.com"]];
+NSURLSession *session = [NSURLSession sharedSession];
+NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                       completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                                           NSString *dataStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                           NSLog(@"%@", dataStr);
+                                       }];
+[task resume];
+</code></pre>
+
+<p>这一段代码可以说是使用 <code class="highlighter-rouge">NSURLSession</code> 发送请求最简单的一段代码了，当你运行这段代码会在控制台看到一坨 <a href="github.com">github</a> 首页的 html。</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span> <span class="na">class=</span><span class="s">""</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;head</span> <span class="na">prefix=</span><span class="s">"og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">'utf-8'</span><span class="nt">&gt;</span>
+		...
+	<span class="nt">&lt;/head&gt;</span>
+	...
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+</div>
+
+<h2 id="afnetworking">AFNetworking</h2>
+
+<p>AFNetworking 的使用也是比较简单的，使用它来发出 HTTP 请求有两个步骤</p>
+
+<ol>
+  <li>以服务器的<strong>主机地址或者域名</strong>生成一个 AFHTTPSessionManager 的实例</li>
+  <li>调用 <code class="highlighter-rouge">- GET:parameters:progress:success:failure:</code> 方法</li>
+</ol>
+
+<pre><code class="language-objectivec">AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[[NSURL alloc] initWithString:@"hostname"]];
+[manager GET:@"relative_url" parameters:nil progress:nil
+    success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"%@" ,responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@", error);
+    }];
+</code></pre>
+
+<blockquote>
+  <p>注意：在 iOS9 中，苹果默认全局 HTTPs，如果你要发送不安全的 HTTP 请求，需要在 info.plist 中加入如下键值对才能发出不安全的 HTTP 请求</p>
+</blockquote>
+
+<blockquote>
+  <p><img src="../images/afnetworking-plist.png" alt="afnetworking-plist" /></p>
+</blockquote>
+
+<blockquote>
+  <p>还有一件事情是要注意的是，AFNetworking 默认接收 json 格式的响应（因为这是在 iOS 平台上的框架，一般不需要 text/html），如果想要返回 html，需要设置 <code class="highlighter-rouge">acceptableContentTypes</code></p>
+</blockquote>
+
+<h2 id="afnetworking-的调用栈">AFNetworking 的调用栈</h2>
+
+<p>在这一节中我们要分析一下在上面两个方法的调用栈，首先来看的是 <code class="highlighter-rouge">AFHTTPSessionManager</code> 的初始化方法 <code class="highlighter-rouge">- initWithBaseURL:</code></p>
+
+<pre><code class="language-objectivec">- [AFHTTPSessionManager initWithBaseURL:]
+	- [AFHTTPSessionManager initWithBaseURL:sessionConfiguration:]
+		- [AFURLSessionManager initWithSessionConfiguration:]
+			- [NSURLSession sessionWithConfiguration:delegate:delegateQueue:]
+			- [AFJSONResponseSerializer serializer] // 负责序列化响应
+			- [AFSecurityPolicy defaultPolicy] // 负责身份认证
+			- [AFNetworkReachabilityManager sharedManager] // 查看网络连接情况
+		- [AFHTTPRequestSerializer serializer] // 负责序列化请求
+		- [AFJSONResponseSerializer serializer] // 负责序列化响应
+</code></pre>
+
+<p>从这个初始化方法的调用栈，我们可以非常清晰地了解这个框架的结构：</p>
+
+<ul>
+  <li>其中 <code class="highlighter-rouge">AFURLSessionManager</code> 是 <code class="highlighter-rouge">AFHTTPSessionManager</code> 的父类</li>
+  <li><code class="highlighter-rouge">AFURLSessionManager</code> 负责生成 <code class="highlighter-rouge">NSURLSession</code> 的实例，管理 <code class="highlighter-rouge">AFSecurityPolicy</code> 和 <code class="highlighter-rouge">AFNetworkReachabilityManager</code>，来保证请求的安全和查看网络连接情况，它有一个 <code class="highlighter-rouge">AFJSONResponseSerializer</code> 的实例来序列化 HTTP 响应</li>
+  <li><code class="highlighter-rouge">AFHTTPSessionManager</code> 有着<strong>自己的</strong> <code class="highlighter-rouge">AFHTTPRequestSerializer</code> 和 <code class="highlighter-rouge">AFJSONResponseSerializer</code> 来管理请求和响应的序列化，同时<strong>依赖父类提供的接口</strong>保证安全、监控网络状态，实现发出 HTTP 请求这一核心功能</li>
+</ul>
+
+<p>初始化方法很好地揭示了 AFNetworking 整个框架的架构，接下来我们要通过分析另一个方法 <code class="highlighter-rouge">- GET:parameters:process:success:failure:</code> 的调用栈，看一下 HTTP 请求是如何发出的：</p>
+
+<pre><code class="language-objectivec">- [AFHTTPSessionManager GET:parameters:process:success:failure:]
+	- [AFHTTPSessionManager dataTaskWithHTTPMethod:parameters:uploadProgress:downloadProgress:success:failure:] // 返回 NSURLSessionDataTask #1
+		- [AFHTTPRequestSerializer requestWithMethod:URLString:parameters:error:] // 返回 NSMutableURLRequest
+		- [AFURLSessionManager dataTaskWithRequest:uploadProgress:downloadProgress:completionHandler:] // 返回 NSURLSessionDataTask #2
+			- [NSURLSession dataTaskWithRequest:] // 返回 NSURLSessionDataTask #3
+			- [AFURLSessionManager addDelegateForDataTask:uploadProgress:downloadProgress:completionHandler:]
+				- [AFURLSessionManagerTaskDelegate init]
+				- [AFURLSessionManager setDelegate:forTask:]
+	- [NSURLSessionDataTask resume]
+</code></pre>
+
+<p>在这里 <code class="highlighter-rouge">#1</code> <code class="highlighter-rouge">#2</code> <code class="highlighter-rouge">#3</code> 处返回的是同一个 data task，我们可以看到，在 <code class="highlighter-rouge">#3</code> 处调用的方法 <code class="highlighter-rouge">- [NSURLSession dataTaskWithRequest:]</code> 和只使用 <code class="highlighter-rouge">NSURLSession</code> 发出 HTTP 请求时调用的方法 <code class="highlighter-rouge">- [NSURLSession dataTaskWithRequest:completionHandler:]</code> 差不多。在这个地方返回 data task 之后，我们再调用 <code class="highlighter-rouge">- resume</code> 方法执行请求，并在某些事件执行时通知代理 <code class="highlighter-rouge">AFURLSessionManagerTaskDelegate</code></p>
+
+<h2 id="小结">小结</h2>
+
+<p>AFNetworking 实际上只是对 <code class="highlighter-rouge">NSURLSession</code> 高度地封装, 提供一些简单易用的 API 方便我们在 iOS 开发中发出网络请求并在其上更快地构建网络层组件并提供合理的接口.</p>
+
+<p>到这里，这一篇文章从上到下对 AFNetworking 是如何调用的进行了一个简单的概述，我会在随后的文章中会具体介绍 AFNetworking 中的每一个模块，了解它们是如何工作，并且如何合理地组织到一起的。</p>
+
+<h2 id="相关文章">相关文章</h2>
+
+<p>关于其他 AFNetworking 源代码分析的其他文章：</p>
+
+<ul>
+  <li><a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/AFNetworking/AFNetworking%20概述（一）.md">AFNetworking 概述（一）</a></li>
+  <li><a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/AFNetworking/AFNetworking%20的核心%20AFURLSessionManager（二）.md">AFNetworking 的核心 AFURLSessionManager（二）</a></li>
+  <li><a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/AFNetworking/处理请求和响应%20AFURLSerialization（三）.md">处理请求和响应 AFURLSerialization（三）</a></li>
+  <li><a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/AFNetworking/AFNetworkReachabilityManager%20监控网络状态（四）.md">AFNetworkReachabilityManager 监控网络状态（四）</a></li>
+  <li><a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/AFNetworking/验证%20HTTPS%20请求的证书（五）.md">验证 HTTPS 请求的证书（五）</a></li>
+</ul>
+
+<p>Follow: <a href="https://github.com/Draveness">@Draveness</a></p>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            
+            <a href="/tag/#/iOS" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+      
+      
+
+      
+      
+        <div class="post-nav" id="post-nav-id">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/ios/2016/12/03/AFNetworking-%E7%9A%84%E6%A0%B8%E5%BF%83-AFURLSessionManager-%E4%BA%8C/" rel="next" title="AFNetworking 的核心 AFURLSessionManager（二）">
+                <i class="fa fa-chevron-left"></i> AFNetworking 的核心 AFURLSessionManager（二）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/ios/2016/11/01/Masonry/" rel="prev" title="iOS 源代码分析 -- Masonry">
+                iOS 源代码分析 -- Masonry <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+      
+
+      
+    </footer>
+  </article>
+
+  <div class="post-spread">
+    
+  </div>
+</div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        
+        
+        
+
+
+
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/assets/images/avatar.png"
+               alt="korbin" />
+          <p class="site-author-name" itemprop="name">korbin</p>
+           
+              <p class="site-description motion-element" itemprop="description">每天进步一小步!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+        
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/kangbingbing" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/kangbingbing" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+
+
+
+
+            
+              <div class="post-toc-content">
+    <ol class=nav>
+      <li class="nav-item nav-level-2"> <a class="nav-link" href="#概述"> <span class="nav-number">1</span> <span class="nav-text">概述</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#nsurlsession"> <span class="nav-number">2</span> <span class="nav-text">NSURLSession</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#afnetworking"> <span class="nav-number">3</span> <span class="nav-text">AFNetworking</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#afnetworking-的调用栈"> <span class="nav-number">4</span> <span class="nav-text">AFNetworking 的调用栈</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#小结"> <span class="nav-number">5</span> <span class="nav-text">小结</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> </li></ol> </li></ol> </li></ol> </li></ol> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#相关文章"> <span class="nav-number">6</span> <span class="nav-text">相关文章</span> </a> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child"> <ol class="nav-child">
+    </ol>
+  </div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">korbin</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://jekyllrb.com">Jekyll</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/simpleyyt/jekyll-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      您是本站第
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      位访问者
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  
+  
+  
+  
+  <script type="text/javascript" src="/assets/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/assets/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/assets/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/assets/js/src/post-details.js?v=5.1.1"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/assets/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+    
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
+
