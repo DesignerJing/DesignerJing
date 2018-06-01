@@ -1,1 +1,1 @@
-#### kangbing's [blog](http://kangbingbing.com)
+#### vinjing's [blog](https://vinjing.tk)
