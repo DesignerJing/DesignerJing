@@ -1,89 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>计时器</title>
+	<title>后台管理系统</title>
 
+	<meta charset="utf-8">
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/login.css">
 	
-	<script type="text/javascript">
-		
-		window.onload = function(){   
-
-
-			var h = document.getElementById('100');;
-
-			function time(){
-
-				// alert('myalert');
-				console.log('abc');
-				
-				h.innerHTML = '12345';
-				h.style.color = 'red';
-
-				d = '123'; // 变成全局变量
-			}
-
-			// time();
-
-
-			// 封闭函数
-			(function(){
-				// alert('myalert');
-				console.log('abc');
-				h.innerHTML = '12345';
-				h.style.color = 'red';
-			})();
-
-
-
-
-			// setTimeout(time,2000);
-
-			var timer1 = setInterval(time,2000);
-			clearInterval(timer1);
-			// alert(d);
-
-
-		}
-
-
-	</script>
-
+	<script type="text/javascript" src="javascript/jquery-3.3.1.min.js"></script>
+	<script src="http://cdn.jsdelivr.net/npm/leancloud-storage@3.7.2/dist/av-min.js"></script>
+	
 
 
 	<style type="text/css">
-		
-		.pop{
-
-			width: 300px;
-			height: 200px;
-			background-color: gold;
-			position: fixed;
-			left: 50%;
-			top: 50%;
-			margin-left: -300px;
-			margin-top: -200px;
+		.tips{
+			margin: -10px auto 0;
+			color: red;
 		}
-
-
-
 	</style>
-
-
-
 </head>
 <body>
 
+	
+	<div class='login'>
+		
+		<form id="admin_login" method="POST">
+			<h3>用户名</h3>
+			<div class="username"><input type="text" name="name" placeholder="请输入用户名" id="admin_user_name"></div>
+			<h3>密码</h3>
+			<div class="password"><input type="password" name="pwd" placeholder="请输入密码" id="admin_pass_word"></div>
 
-	<h1 id="100">标题</h1>
+			<!-- <a href="#" class='login_btn'><input type="submit" value="登录"></a> -->
+			<a class='login_btn'><input type="button" value="登录" onclick="adminLogin()"></a>
 
+			<div class="tips" id="errormsg"></div>
+		</form>
+		
+		
+	</div>
+	
 
+	
 
-<div>
-
-	<div class='pop'>提示信息</div>
-
-</div>
 
 
 </body>
+
+<script type="text/javascript" src="javascript/initLeanCloud.js"></script>
+<script type="text/javascript" src="javascript/manager.js"></script>
 </html>
