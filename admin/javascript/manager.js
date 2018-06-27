@@ -3,28 +3,20 @@ $(document).ready(function(){
 
 	$('#openAccount').click(function(){
 
-    	$('.add_con').hide();
-    	$('.create_image').hide();
-    	$('.create_user').show();
-    	$('.random_phone').hide();
+    	$(".create_user").addClass("active").siblings().removeClass('active');
 
 	});
 
 	$('#addMsg').click(function(){
 
-    	$('.add_con').hide();
-    	$('.create_image').show();
-    	$('.create_user').hide();
-    	$('.random_phone').hide();
+		$(".create_image").addClass("active").siblings().removeClass('active');
 
 	});
 
 	$('#addCon').click(function(){
 
-    	$('.add_con').show();
-    	$('.random_phone').show();
-    	$('.create_image').hide();
-    	$('.create_user').hide();
+
+		$(".addContact").addClass("active").siblings().removeClass('active');
     	
 	});
 

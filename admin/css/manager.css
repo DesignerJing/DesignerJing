@@ -90,11 +90,9 @@ body h3{
 }
 
 
-
-
 .create_image{
 	/*background-color:#b0e0e6;*/
-	
+	display: none;
 	margin: 100px 0 0 200px;
 	bottom: 0;
 }
@@ -112,27 +110,33 @@ body h3{
 	margin: 10px auto 0;
 	width: 98%;
 	height: 150px;
-
-
 }
 
 .add_con{
 	/*background-color:#b0e0e6;*/
-	display: none;
 	margin: 100px 0 0 200px;
 	bottom: 0;
 }
 
 
-.random_phone{
-	/*background-color:#b0e0e6;*/
-	display: none;
+/*.random_phone{
+	background-color:#b0e0e6;
 	margin: 100px 0 0 200px;
 	bottom: 0;
+}*/
+
+
+.addContact{
+	display: none;
 }
 
 select{
 	margin: 10px auto 0;
+}
+
+.active{
+
+	display: block;
 }
 
 
