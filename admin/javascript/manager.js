@@ -357,33 +357,48 @@ function createRandomPhone(){
     } 
 	if (prefix.length < 3) {
 		alert('前缀不能小于3位数');
-	}else if (parseInt(num) > 100 || !obj[1].value) {
-		alert('每次生成数量不超过100');
+	}else if (parseInt(num) > 1000 || !obj[1].value) {
+		alert('每次生成数量不超过1000');
 	}else{
 
+		var arrayObj = new Array();
 		for (var i = 0; i < parseInt(num); i++) {
 			// console.log(getName());
 			// console.log(getPhone(prefix));
-			// var name = getName();
+			var name = getName();
 			var phone = getPhone(prefix);
 			var name = getName() + phone.substr(-4);
-			// console.log(name);
+			console.log(name);
 			var Contacts = AV.Object.extend('contacts');
 		  	var contacts = new Contacts();
 		  	contacts.set('name', name);
 		  	contacts.set('phone', phone);
-		  	contacts.save().then(function (contacts) {
-		    // 成功保存之后，执行其他逻辑.
-		    	// console.log('保存成功');
-		  	}, function (error) {
-		    // 异常处理
-		    	console.log(error);
-		    	// alert('添加失败');
-		  	});
+
+		  	arrayObj.push(contacts);
+		  	// console.log(arrayObj);
+		  	
+
+
+		  	// contacts.save().then(function (contacts) {
+		   //  // 成功保存之后，执行其他逻辑.
+		   //  	console.log('保存成功');
+		  	// }, function (error) {
+		   //  // 异常处理
+		   //  	console.log(error);
+		   //  	// alert('添加失败');
+		  	// });
 		}
 
+		AV.Object.saveAll(arrayObj).then(function (objects) {
+			    // 成功
+			alert('添加成功');
+		}, function (error) {
+			// 异常处理
+			alert('生成失败');
+			console.log(error);
+		});
 		$("input").not(':button, :submit, :reset, :hidden').val('');
-		alert('添加成功');
+		
 
 	}
 
