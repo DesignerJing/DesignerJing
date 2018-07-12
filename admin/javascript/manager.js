@@ -365,9 +365,10 @@ function createRandomPhone(){
 		for (var i = 0; i < parseInt(num); i++) {
 			// console.log(getName());
 			// console.log(getPhone(prefix));
-			var name = getName();
+			
 			var phone = getPhone(prefix);
-			var name = getName() + phone.substr(-4);
+			var name = phone;
+			// var name = getName() + phone.substr(-4);
 			console.log(name);
 			var Contacts = AV.Object.extend('contacts');
 		  	var contacts = new Contacts();
