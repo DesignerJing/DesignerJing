@@ -130,6 +130,19 @@ body h3{
 	display: none;
 }
 
+
+.addKnowledge{
+	/*background-color:#b0e0e6;*/
+	display: none;
+	margin: 100px 0 0 200px;
+	bottom: 0;
+}
+
+
+
+
+
+
 select{
 	margin: 10px auto 0;
 }

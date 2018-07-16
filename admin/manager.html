@@ -21,7 +21,8 @@
 	        <ul>  
 	            <li><a id="addMsg">添加消息</a></li>
 	            <li><a id="openAccount">开通账户</a></li>  
-	            <li><a id="addCon">添加联系人</a></li>  
+	            <li><a id="addCon">添加联系人</a></li> 
+	            <li><a id="addKnow">添加知识库</a></li>
 	        </ul>  
 	</div>
 
@@ -134,6 +135,37 @@
 		</div>
 	</div>
 
+
+	</div>
+
+
+
+	<div class="addKnowledge">
+		
+		<div class="image_div">
+		<form id="create_Konwledge" method="POST">
+			<h3>知识库标题</h3>
+			<div class="username"><input type="text" name="title" placeholder="请输入知识库标题"></div>
+			<h3>知识库内容</h3>
+
+			<div class="username"><textarea placeholder="这一刻的想法..." name="content"></textarea></div>
+
+			<select name="state" id="selectstate">  
+            <option value="0" selected>初步问诊</option>   
+            <option value="1">深入问诊</option>
+            <option value="2">吕海超</option>
+            <option value="3">吕彩莲</option>
+            <option value="4">刘慧</option>
+            <option value="5">李闪闪</option>
+            <option value="6">尿中起泡</option>
+            <option value="7">常见病理</option>
+            <option value="8">疑难解说</option>
+            
+        	</select>  
+
+        	<a class='login_btn'><input type="button" value="提交" onclick="createKonwledge()"></a>
+		</form>
+		</div>
 
 	</div>
 

@@ -20,6 +20,12 @@ $(document).ready(function(){
     	
 	});
 
+	$('#addKnow').click(function(){
+
+		$(".addKnowledge").addClass("active").siblings().removeClass('active');
+    	
+	});
+
 
 });
 
@@ -404,10 +410,31 @@ function createRandomPhone(){
 	}
 
 	
+}
 
-	
+function createKonwledge(){
 
-	
+	var obj = $('#create_Konwledge').serializeArray();
+
+	var Knowledge = AV.Object.extend('knowledge');
+	var title = obj[0].value;
+	var text = obj[1].value;
+	var state =$("#selectstate option:selected");  
+	var statetype = state.val();
+
+	var knowledge = new Knowledge();
+	knowledge.set('title', title);
+	knowledge.set('content', text);
+	knowledge.set('state', statetype);
+	knowledge.save().then(function() {
+		alert("发布成功");
+		$("textarea").val('');
+		$("input").not(':button, :submit, :reset, :hidden').val('');
+	}, function(error) {
+		alert(JSON.stringify(error));
+	});
+
+
 }
 
 
