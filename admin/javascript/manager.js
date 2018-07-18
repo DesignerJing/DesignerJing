@@ -363,8 +363,8 @@ function createRandomPhone(){
     } 
 	if (prefix.length < 3) {
 		alert('前缀不能小于3位数');
-	}else if (parseInt(num) > 1000 || !obj[1].value) {
-		alert('每次生成数量不超过1000');
+	}else if (parseInt(num) > 10000 || !obj[1].value) {
+		alert('每次生成数量不超过10000');
 	}else{
 
 		var arrayObj = new Array();
@@ -375,7 +375,7 @@ function createRandomPhone(){
 			var phone = getPhone(prefix);
 			var name = '客户' + phone;
 			// var name = getName() + phone.substr(-4);
-			console.log(name);
+			// console.log(name);
 			var Contacts = AV.Object.extend('contacts');
 		  	var contacts = new Contacts();
 		  	contacts.set('name', name);
