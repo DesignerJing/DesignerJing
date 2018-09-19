@@ -361,7 +361,7 @@ function createRandomPhone(){
         alert("手机前缀有误，请重填");  
         return false; 
     } 
-	if (prefix.length < 3) {
+	if (prefix.length < 2) {
 		alert('前缀不能小于3位数');
 	}else if (parseInt(num) > 10000 || !obj[1].value) {
 		alert('每次生成数量不超过10000');
@@ -382,7 +382,8 @@ function createRandomPhone(){
 		  	contacts.set('phone', phone);
 
 		  	arrayObj.push(contacts);
-		  	// console.log(arrayObj);
+
+		 
 		  	// contacts.save().then(function (contacts) {
 		   //  // 成功保存之后，执行其他逻辑.
 		   //  	console.log('保存成功');
@@ -402,11 +403,11 @@ function createRandomPhone(){
 		});
 		$("input").not(':button, :submit, :reset, :hidden').val('');
 		
-
 	}
-
-	
 }
+
+
+
 
 function createKonwledge(){
 
@@ -432,6 +433,8 @@ function createKonwledge(){
 
 
 }
+
+
 
 
 function getPhone(prefix){
